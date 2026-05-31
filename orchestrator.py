@@ -89,5 +89,60 @@ Schreibe klar und knapp auf Deutsch.
     print(f"Geschrieben: {output_file}")
 
 
+def run_game_designer_agent():
+    agent_name = "Game Designer Agent"
+
+    spec_file = WORKSPACE / "spec.md"
+
+    if not spec_file.exists():
+        raise FileNotFoundError("workspace/spec.md fehlt. Bitte zuerst den Product Owner Agent ausführen.")
+
+    spec = spec_file.read_text(encoding="utf-8")
+
+    prompt = f"""
+Du bist der Game Designer Agent in einem lokalen Agenten-Workshop.
+
+Du bekommst diese Spiel-Spezifikation:
+
+---
+{spec}
+---
+
+Aufgabe:
+Erstelle daraus ein konkretes Game Design für ein sehr kleines Browser-Spiel.
+
+Rahmen:
+- Eine einzige index.html-Datei.
+- Kein Backend.
+- Keine externen Libraries.
+- Steuerung mit Maus oder Tastatur.
+- Muss in 3 Minuten erklärbar und spielbar sein.
+- Zielgruppe: CIOs von Hochschulen im Workshop "Hands-on agentic AI".
+
+Gib aus:
+1. Spielziel
+2. Bildschirmaufbau
+3. Spielobjekte
+4. Regeln
+5. Punkte-System
+6. Ereignisse im Spiel
+7. Benutzerinteraktion
+8. Minimalversion für den Developer Agent
+9. Nice-to-have-Erweiterungen
+
+Schreibe klar, knapp und umsetzbar auf Deutsch.
+"""
+
+    output = call_ollama(prompt)
+
+    output_file = WORKSPACE / "design.md"
+    output_file.write_text(output, encoding="utf-8")
+
+    log_run(agent_name, prompt, output)
+
+    print("Game Designer Agent fertig.")
+    print(f"Geschrieben: {output_file}")
+
 if __name__ == "__main__":
     run_product_owner_agent()
+    run_game_designer_agent()

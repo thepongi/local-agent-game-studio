@@ -1,25 +1,26 @@
-1. Spieltitel: "CampusCode"
+1. Spieltitel: "Campus CyberQuest"
 
 2. Kurzidee:
-   Ein Abenteuer im digitalen Campus, wo CIOs Herausforderungen in der IT-Bereich beuteln müssen.
+   Ein CIO muss durch eine sichere IT-Umgebung navigieren, um wichtige Daten zu beschützen und ein neues Campus-System einzurichten.
 
 3. Zielgruppe:
-   Hochschulleiter, IT-Manager und CIOs
+   Hochschulleitungsteams, CIOs, IT-Betreuer
 
 4. Spielmechanik:
-   Spieler sind eine IT-Behörde des Campuses. Sie erhalten Aufgaben wie Netzwerkupdates, Softwarepatches, Sicherheitsanfragen etc. Jede erfolgreiche Aktion sammelt Punkte. Fehler führen zu Verlustpunkten.
+   Der Spieler steuert einen virtuellen CIO durch eine IT-Szene, die verschiedene Aufgaben wie Firewall-Einstellungen, Antivirus-Updates und Benutzersicherheit erfordert. Er muss Entscheidungen treffen, um Rätsel zu lösen und das System erfolgreich sicherzustellen.
 
 5. Gewinn-/Verlierbedingung:
-   Der Spieler mit den meisten Punkten am Ende des Spiels gewinnt. Bei gleichen Punkten entscheidet die Geschwindigkeit der korrekten Antworten.
+   Sieg: Der Spieler navigiert den gesamten IT-Pfad erfolgreich ohne Fehler durch.
+   Verloren: Der Spieler macht einen schwerwiegenderen Fehler oder verliert alle Systempunkte.
 
 6. Anforderungen an die index.html:
    - HTML5-Struktur
-   - CSS für grundlegende Styling (Farben, Schriftarten)
-   - JavaScript für Spiellogik und Benutzerinteraktionen
-   - Einfache Animationen optional
-   - Die Datei muss sich in einem lokalen Server läufen lassen (z.B. mit VS Code Live Server oder Python SimpleHTTPServer)
+   - CSS für Layout und Design
+   - JavaScript für Interaktivität und Spiellogik
+   - Bildern für das IT-Szenario und UI-Elemente
+   - Audio-Dateien (optional)
 
 7. Drei mögliche Erweiterungen:
-   a) Multiplayer-Modus: Spieler können gegenseitig Herausforderungen stellen.
-   b) Zeitlimits für Aufgaben: Jede Aufgabe hat einen Zeitraum, über den sich der Spieler entscheiden muss.
-   c) Statistiken und Ranglisten: Nach jedem Spiel werden Punkte und Ränge gespeichert und anzeigen.
+   a) Multiplayer-Modus: CIOs können sich gegenseitig ansetzen, um die Schwierigkeit zu erhöhen.
+   b) Zeitbonus: Spieler erhalten bonuspunkte für schnelle und korrekte Antworten.
+   c) Herausforderungsmodus: Erhöhte Anzahl von Rätseln und schwierigeren Entscheidungen.
