@@ -2,76 +2,70 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>CampusTech: Cybersecurity Challenge</title>
+    <title>Campus-Security-Challenge</title>
     <style>
-        body { font-family: Arial, sans-serif; background-color: #f4f4f9; }
-        .container { width: 80%; margin: auto; text-align: center; }
-        .budget { width: 300px; height: 20px; background-color: lightblue; margin-bottom: 10px; font-size: 16px; padding: 5px; }
-        .system { width: 70px; height: 70px; border: 1px solid black; display: inline-block; margin-right: 10px; cursor: pointer; background-color: #fff; position: relative; }
-        .icon { width: 50%; height: auto; margin-top: 10%; }
-        .info { font-size: 14px; margin-top: 5px; }
-        .scoreboard { margin-top: 20px; font-size: 18px; color: #333; }
-        .end-game { display: none; font-size: 24px; margin-top: 20px; color: red; }
+        body { font-family: Arial, sans-serif; }
+        #scoreboard { margin-bottom: 10px; }
+        canvas { border: 1px solid black; display: block; margin: auto; }
+        .button-container { text-align: center; margin-top: 20px; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>CampusTech: Cybersecurity Challenge</h1>
-        <div class="budget" id="budget">Budget: $1000</div>
-        <div id="systems">
-            <div class="system server"><img src="server.png" alt="Server" class="icon"><div class="info">Server</div></div>
-            <div class="system router"><img src="router.png" alt="Router" class="icon"><div class="info">Router</div></div>
-        </div>
-        <div id="scoreboard">Score: 0</div>
-        <div id="end-game">Game Over!</div>
-    </div>
-    <script>
-        const budget = document.getElementById('budget');
-        let currentBudget = 1000;
-        const systems = document.querySelectorAll('.system');
-        let score = 0;
 
-        function updateBudget(amount) {
-            currentBudget += amount;
-            budget.textContent = `Budget: $${currentBudget}`;
-            if (currentBudget <= 0) {
-                gameover();
-            }
-        }
+<div id="scoreboard">
+    <span id="score">Punkte: 0</span> | <span id="lives">Leben: 3</span>
+</div>
 
-        function addScore(points) {
-            score += points;
-            document.getElementById('scoreboard').textContent = `Score: ${score}`;
-        }
+<canvas id="network" width="800" height="600"></canvas>
 
-        function gameover() {
-            document.getElementById('end-game').style.display = 'block';
-            systems.forEach(system => system.removeEventListener('click', handleSystemClick));
-        }
+<div class="button-container">
+    <button onclick="addFirewall()">Firewall hinzufügen</button>
+    <button onclick="addSecurityForce()">Sicherheitskraft hinzufügen</button>
+</div>
 
-        function handleSystemClick(e) {
-            const clickedSystem = e.target;
-            if (currentBudget >= 100 && !clickedSystem.classList.contains('protected')) {
-                updateBudget(-100);
-                clickedSystem.classList.add('protected');
-                addScore(50);
-                alert(`Sicherheitsmaßnahme auf ${clickedSystem.querySelector('.info').textContent} installiert`);
-            } else if (currentBudget < 100) {
-                alert("Nicht genügend Budget");
-            }
-        }
+<script>
+    const canvas = document.getElementById('network');
+    const ctx = canvas.getContext('2d');
+    let score = 0;
+    let lives = 3;
 
-        systems.forEach(system => system.addEventListener('click', handleSystemClick));
+    function drawSystem(x, y) {
+        ctx.beginPath();
+        ctx.arc(x, y, 20, 0, Math.PI * 2);
+        ctx.fillStyle = 'blue';
+        ctx.fill();
+        ctx.closePath();
+    }
 
-        setInterval(() => {
-            const randomIndex = Math.floor(Math.random() * systems.length);
-            const randomSystem = systems[randomIndex];
-            if (!randomSystem.classList.contains('protected')) {
-                alert(`Cyberangriff auf ${randomSystem.querySelector('.info').textContent} erfolgreich`);
-                updateBudget(-100);
-            }
-        }, 3000);
+    function addFirewall() {
+        // Simulate adding a firewall to a system
+        updateScore(10);
+    }
 
-    </script>
+    function addSecurityForce() {
+        // Simulate adding security force to a system
+        updateScore(10);
+    }
+
+    function updateScore(points) {
+        score += points;
+        document.getElementById('score').innerText = 'Punkte: ' + score;
+    }
+
+    function gameLoop() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawSystem(200, 200);
+        // Add more systems and logic here
+        requestAnimationFrame(gameLoop);
+    }
+
+    gameLoop();
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'f') addFirewall();
+        if (e.key === 's') addSecurityForce();
+    });
+</script>
+
 </body>
 </html>

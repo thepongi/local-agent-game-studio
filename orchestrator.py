@@ -232,7 +232,58 @@ Erzeuge jetzt die vollständige index.html.
     print(f"Geschrieben: {output_file}")
 
 
+def run_tester_agent():
+    agent_name = "Tester Agent"
+
+    html_file = WORKSPACE / "index.html"
+
+    if not html_file.exists():
+        raise FileNotFoundError("workspace/index.html fehlt. Bitte zuerst den Developer Agent ausführen.")
+
+    html = html_file.read_text(encoding="utf-8")
+
+    prompt = f"""
+Du bist der Tester Agent in einem lokalen Agenten-Workshop.
+
+Du bekommst den vollständigen HTML-Code eines kleinen Browser-Spiels.
+
+HTML-CODE:
+---
+{html}
+---
+
+Aufgabe:
+Prüfe das Spiel kritisch.
+
+Bewerte:
+1. Läuft der Code grundsätzlich im Browser?
+2. Gibt es offensichtliche JavaScript-Fehler?
+3. Ist das Spielziel verständlich?
+4. Gibt es Start, Spielverlauf und Spielende?
+5. Funktioniert die Interaktion?
+6. Ist das Thema Hochschul-IT/CIO/Cybersecurity erkennbar?
+7. Welche drei konkreten Verbesserungen sollte der Developer Agent umsetzen?
+
+Wichtig:
+- Schreibe einen klaren Testbericht auf Deutsch.
+- Sei konkret.
+- Wenn du Code-Probleme findest, benenne sie möglichst genau.
+- Gib am Ende eine Entscheidung: "Freigabe", "Freigabe mit kleinen Änderungen" oder "Keine Freigabe".
+"""
+
+    output = call_ollama(prompt)
+
+    output_file = WORKSPACE / "test-report.md"
+    output_file.write_text(output, encoding="utf-8")
+
+    log_run(agent_name, prompt, output)
+
+    print("Tester Agent fertig.")
+    print(f"Geschrieben: {output_file}")
+
+
 if __name__ == "__main__":
     run_product_owner_agent()
     run_game_designer_agent()
     run_developer_agent()
+    run_tester_agent()

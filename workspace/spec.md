@@ -1,30 +1,28 @@
-**Spiel-Spezifikation für CIOs von Hochschulen**
+**Spiel: Campus-Security-Challenge**
 
-1. **Spieltitel:** "CampusTech: Cybersecurity Challenge"
+### 1. Spieltitel:
+Campus-Security-Challenge
 
-2. **Kurzidee:** Spieler müssen IT-Systeme einer virtuellen Universität vor Cyberangriffen schützen.
+### 2. Kurzidee:
+CIOs von Hochschulen müssen in einer sich verändernden IT-Umgebung Entscheidungen treffen, um ein Cyberangriff zu verhindern und das Netzwerk zu schützen.
 
-3. **Zielgruppe:** CIOs und IT-Bereiche von Hochschulen
+### 3. Zielgruppe:
+CIOs von Hochschulen (Mittelstufe)
 
-4. **Spielmechanik:** 
-   - Spieler erhalten ein Budget um verschiedene Sicherheitsmaßnahmen anzuschaffen (z.B., Firewall, Anti-Virus-Software).
-   - Sie müssen im Spielumfeld Cyberangriffe simulieren (z.B., DDoS-Angriff, Phishing-Mails).
-   - Jede erfolgreiche Angriff minimiert das Budget und kann wichtige IT-Systeme beschädigen.
-   - Spieler müssen Entscheidungen treffen, welche Maßnahmen zu implementieren sind, um den Cyberangriff abzuwehren.
+### 4. Spielmechanik:
+Der Spieler versteckt sich in einer digitalen Repräsentation der UniversitätsCampusnetzwerke. Er muss Entscheidungen treffen, um bestimmte Systeme zu sichern, Angriffe abzuwehren und Ressourcen zu nutzen. Diese Entscheidungen beeinflussen die Sicherheit des Netzwerks und können positiv oder negativ auf seine Punktzahl einwirken.
 
-5. **Gewinn-/Verlierbedingung:** 
-   - Das Spiel gewinnt die Spieler wenn sie alle IT-Systeme vor Cyberangriffen schützen können.
-   - Sie verlieren das Spiel, wenn ihre Budgetverbleib nicht ausreicht oder wichtige Systeme beschädigt werden.
+### 5. Gewinn-/Verlierbedingung:
+Das Spiel endet, wenn das Netzwerk vollständig gesichert ist (maximal 100 Punkte), oder wenn eine kritische Angriffslinie geschlagen wird, die das Netzwerk in Gefahr bringt. Der Spieler mit der höchsten Punktzahl gewinnt.
 
-6. **Anforderungen an die index.html:**
-   - HTML5 und CSS3 für die Benutzeroberfläche
-   - JavaScript für die interaktive Logik des Spiels
-   - Interne CSS-Datei (nicht inline-Stile)
-   - Interne JavaScript-Datei (keine externen Bibliotheken)
-   - Bildressourcen im gleichen Ordner wie index.html
+### 6. Anforderungen an die index.html:
+- Die HTML-Datei muss alle notwendigen Elemente wie Buttons, Textfelder und ein Canvas für Grafiken enthalten.
+- Es müssen JavaScript-Funktionen zur Spiellogik, zum Aktualisieren der Punktzahl und zur Verwaltung des Netzwerks implementiert sein.
+- Das Design sollte informativ und ansprechend sein.
 
-7. **Mögliche Erweiterungen:**
-   - Multiplayer-Version für Teams-Wettbewerbe
-   - Schwierigkeitsgradsteuerung durch verschiedene IT-Systeme
-   - Anpassbare Budgetgrenzen je nach Institutionstyp
-   - Leaderboard zum Vergleichen von Teamleistungen
+### 7. Drei mögliche Erweiterungen:
+1. **Multiplayer Modus**: CIOs können sich gegenseitig anbieten, um die IT-Sicherheit einer Universitätsnetzwerk zu verstärken.
+2. **Ressourcen Verwaltung**: Spieler müssen Ressourcen wie Firewall-Punkte oder Sicherheitskräfte verwalten, um das Netzwerk robust zu halten.
+3. **Custom-Levels**: Entwickler können benutzerdefinierte IT-Umgebungen erstellen, um die Schwierigkeit des Spiels variieren zu lassen.
+
+Diese Spezifikation sollte ein klare und verständliche Anleitung sein für einen Developer Agent, der das Spiel implementieren soll.
