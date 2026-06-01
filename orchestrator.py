@@ -282,8 +282,70 @@ Wichtig:
     print(f"Geschrieben: {output_file}")
 
 
+def run_developer_revision_agent():
+    agent_name = "Developer Revision Agent"
+
+    html_file = WORKSPACE / "index.html"
+    test_file = WORKSPACE / "test-report.md"
+
+    if not html_file.exists():
+        raise FileNotFoundError("workspace/index.html fehlt. Bitte zuerst den Developer Agent ausführen.")
+
+    if not test_file.exists():
+        raise FileNotFoundError("workspace/test-report.md fehlt. Bitte zuerst den Tester Agent ausführen.")
+
+    html = html_file.read_text(encoding="utf-8")
+    test_report = test_file.read_text(encoding="utf-8")
+
+    prompt = f"""
+Du bist der Developer Revision Agent in einem lokalen Agenten-Workshop.
+
+Du bekommst den aktuellen HTML-Code eines Browser-Spiels und den Testbericht des Tester Agents.
+
+AKTUELLER HTML-CODE:
+---
+{html}
+---
+
+TESTBERICHT:
+---
+{test_report}
+---
+
+Aufgabe:
+Verbessere die index.html anhand des Testberichts.
+
+Strikte Anforderungen:
+- Gib NUR den vollständigen verbesserten HTML-Code aus.
+- Keine Markdown-Erklärung.
+- Keine Code-Fences.
+- Alles muss weiterhin in einer einzigen Datei funktionieren.
+- Verwende nur HTML, CSS und Vanilla JavaScript.
+- Keine externen Libraries.
+- Kein Backend.
+- Kein Internetzugriff.
+- Behalte das Thema Hochschul-IT/CIO/Cybersecurity bei.
+- Verbessere Verständlichkeit, Spielbarkeit und Robustheit.
+
+Erzeuge jetzt die vollständige verbesserte index.html.
+"""
+
+    output = call_ollama(prompt)
+    html = extract_html(output)
+
+    output_file = WORKSPACE / "index.html"
+    output_file.write_text(html, encoding="utf-8")
+
+    log_run(agent_name, prompt, output)
+
+    print("Developer Revision Agent fertig.")
+    print(f"Verbessert: {output_file}")
+
+
+
 if __name__ == "__main__":
     run_product_owner_agent()
     run_game_designer_agent()
     run_developer_agent()
     run_tester_agent()
+    run_developer_revision_agent()

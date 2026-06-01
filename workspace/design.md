@@ -1,84 +1,122 @@
-1. **Spielziel**: 
-   Spieler müssen das Netzwerk des Universitätscampuses schützen, indem sie Ressourcen wie Firewall-Punkte und Sicherheitskräfte nutzen, um Cyberangriffe abzuwehren.
+1. **Spielziel:**
+   Spieler müssen ein Computer-Virus von einem Hochschulnetzwerk entfernen, indem sie verschiedene IT-Services nutzen und Entscheidungen treffen.
 
-2. **Bildschirmaufbau**:
-   - Oben: Textfeld für die Anzeige der aktuellen Punktzahl
-   - Mitte: Canvas zur Darstellung des Campus-Netzwerks mit Systemn节点和连线
-   - Unten: Buttons für die Auswahl von Aktionen (z.B. "Angriff verhindern", "Ressourcen hinzufügen")
+2. **Bildschirmaufbau:**
+   - Oben: Netzwerkstatus (Graphik), Ressourcen (CPU, Speicher)
+   - Mitte: Buttons für IT-Aktionen (Firewall, Anti-Virus, Malware-Scan)
+   - unten: Punktzahl und Spielstand
 
-3. **Spielobjekte**:
-   - **Systeme**: Die Knoten des Netzwerks, die sich gegen Angriffe schützen können
-   - **Firewall-Punkte**: Ressourcen, die zum Schutz der Systeme beitragen
-   - **Sicherheitskräfte**: Ressourcen, die für das Verwalten und Erhöhen der Sicherheit des Netzwerks sorgen
+3. **Spielobjekte:**
+   - Virus (Symbol): Die Bedrohung
+   - IT-Service-Slots: Für Spieleraktionen
+   - Netzwerkgrafik: Anzeige des Netzwerkstatus
 
-4. **Regeln**:
-   - Spieler können Firewall-Punkte und Sicherheitskräfte auf bestimmte Systeme anwenden
-   - Jede erfolgreiche Aktion erhöht die Punktzahl
-   - Jeder fehlgeschlagene Angriff vermindert die Punktzahl
-   - Spielende, wenn Netzwerk vollständig gesichert ist oder eine kritische Angriffslinie geschlagen wird
+4. **Regeln:**
+   - Jede Aktion verbraucht Ressourcen.
+   - Der Virus beeinträchtigt den Netzwerkstatus und benötigt Ressourcen, um weiterhin anzumachen.
+   - Spieler müssen entscheiden, welche IT-Service zu nutzen sind.
 
-5. **Punkte-System**:
-   - +10 Punkte für jede erfolgreiche Aktion
-   - -5 Punkte für jeden fehlgeschlagenen Angriff
+5. **Punkte-System:**
+   - 1 Punkt für jedes erfolgreich gelöste Virus
+   - Verlust von Punkten bei übermäßiger Nutzung von Ressourcen
 
-6. **Ereignisse im Spiel**:
-   - Kritische Angriffslinien erschienen, die das Netzwerk bedrohen
-   - Spieler erhalten hinweise zur Stärkung des Netzwerks
-   - Zufällige Events (z.B. neue Ressourcen verfügbar)
+6. **Ereignisse im Spiel:**
+   - Regelmäßige Einführung von neuen Virusen
+   - Cyber-Angreifer können zufällig neue Bedrohungen verursachen
+   - Ressourcenverschwendung führt zu langsameren Netzwerkstatus
 
-7. **Benutzerinteraktion**:
-   - Mausklick auf Systeme für Aktionen wählen
-   - Tastaturkürzel für schnelle Befehle (z.B. "F" für Firewall-Punkt hinzufügen, "S" für Sicherheitskraft hinzufügen)
+7. **Benutzerinteraktion:**
+   - Klicken auf Buttons für IT-Actions
+   - Anzeige des Netzwerkstatus und der verfügbaren Ressourcen in realem Zeit
 
-8. **Minimalversion für den Developer Agent**:
+8. **Minimalversion für den Developer Agent:**
    ```html
    <!DOCTYPE html>
    <html lang="de">
    <head>
        <meta charset="UTF-8">
-       <title>Campus-Security-Challenge</title>
+       <title>Campus CyberQuest</title>
        <style>
-           canvas { border: 1px solid black; }
+           body { font-family: Arial, sans-serif; text-align: center; }
+           .network-status { margin-top: 20px; font-size: 24px; color: red; }
+           .resources { margin-top: 10px; }
+           .button { padding: 10px 20px; margin: 5px; cursor: pointer; }
        </style>
    </head>
    <body>
-       <div id="score">Punkte: 0</div>
-       <canvas id="network" width="800" height="600"></canvas>
-       <button onclick="addFirewall()">Firewall hinzufügen</button>
-       <button onclick="addSecurityForce()">Sicherheitskraft hinzufügen</button>
-       
+       <div id="network-status">Netzwerkstatus: 100%</div>
+       <div class="resources">
+           CPU: 100%<br>Speicher: 90%
+       </div>
+       <button class="button" onclick="action('firewall')">Firewall</button>
+       <button class="button" onclick="action('antivirus')">Anti-Virus</button>
+       <button class="button" onclick="action('malware-scan')">Malware-Scan</button>
+
        <script>
-           const canvas = document.getElementById('network');
-           const ctx = canvas.getContext('2d');
-           let score = 0;
-           
-           function addFirewall() {
-               // Logik zur Hinzufügung einer Firewall-Punkte
-               updateScore(10);
+           let networkStatus = 100;
+           let cpuUsage = 100;
+           let memoryUsage = 90;
+
+           function action(service) {
+               if (service === 'firewall') {
+                   if (cpuUsage > 20) {
+                       cpuUsage -= 10;
+                       updateNetworkStatus();
+                       alert('Firewall erfolgreich angewendet!');
+                   } else {
+                       alert('Nicht genügend CPU-Ressourcen!');
+                   }
+               } else if (service === 'antivirus') {
+                   if (memoryUsage > 20) {
+                       memoryUsage -= 10;
+                       updateNetworkStatus();
+                       alert('Anti-Virus erfolgreich angewendet!');
+                   } else {
+                       alert('Nicht genügend Speicher-Ressourcen!');
+                   }
+               } else if (service === 'malware-scan') {
+                   if (cpuUsage > 30 && memoryUsage > 20) {
+                       cpuUsage -= 15;
+                       memoryUsage -= 10;
+                       updateNetworkStatus();
+                       alert('Malware-Scan erfolgreich angewendet!');
+                   } else {
+                       alert('Nicht genügend Ressourcen!');
+                   }
+               }
+
+               // Zufalls-Virus-Eintritt
+               if (Math.random() < 0.1) {
+                   networkStatus -= 5;
+                   updateNetworkStatus();
+                   alert('Neuer Virus!');
+               }
+
+               // Netzwerkstatus überprüfen
+               if (networkStatus <= 0) {
+                   alert('Game Over! Netzwerk verloren.');
+                   resetGame();
+               }
            }
-           
-           function addSecurityForce() {
-               // Logik zur Hinzufügung einer Sicherheitskraft
-               updateScore(10);
+
+           function updateNetworkStatus() {
+               document.getElementById('network-status').innerText = 'Netzwerkstatus: ' + networkStatus + '%';
+               document.querySelector('.resources CPU').innerText = 'CPU: ' + cpuUsage + '%';
+               document.querySelector('.resources Speicher').innerText = 'Speicher: ' + memoryUsage + '%';
            }
-           
-           function updateScore(points) {
-               score += points;
-               document.getElementById('score').innerText = 'Punkte: ' + score;
+
+           function resetGame() {
+               networkStatus = 100;
+               cpuUsage = 100;
+               memoryUsage = 90;
+               updateNetworkStatus();
            }
-           
-           function gameLoop() {
-               // Spiellogik und Renderloop
-               requestAnimationFrame(gameLoop);
-           }
-           
-           gameLoop();
        </script>
    </body>
    </html>
    ```
 
-9. **Nice-to-have-Erweiterungen**:
-   - Multiplayer Modus: CIOs können sich gegenseitig anbieten, um die IT-Sicherheit einer Universitätsnetzwerk zu verstärken.
-   - Ressourcen Verwaltung: Spieler müssen Ressourcen wie Firewall-Punkte oder Sicherheitskräfte verwalten, um das Netzwerk robust zu halten.
-   - Custom-Levels: Entwickler können benutzerdefinierte IT-Umgebungen erstellen, um die Schwierigkeit des Spiels variieren zu lassen.
+9. **Nice-to-have-Erweiterungen:**
+   - Multiplayer-Funktionalität
+   - Ressourcen-Management
+   - Schwierigkeitsstufen

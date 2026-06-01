@@ -1,28 +1,26 @@
-Testbericht für das Campus-Security-Challenge Spiel
+**Testbericht für Campus CyberQuest**
 
-1. Läuft der Code grundsätzlich im Browser?
-   Ja, der Code läuft korrekt im Browser.
+**1. Läuft der Code grundsätzlich im Browser?**
+Ja, der Code läuft grundsätzlich im Browser. Die Seite wird korrekt geladen und funktioniert nach einigen Sekunden.
 
-2. Gibt es offensichtliche JavaScript-Fehler?
-   Nein, es gibt keine offensichtlichen JavaScript-Fehler.
+**2. Gibt es offensichtliche JavaScript-Fehler?**
+Es gibt keine offensichtlichen JavaScript-Fehler im Code. Alle Funktionen und Variablen sind korrekt definiert.
 
-3. Ist das Spielziel verständlich?
-   Das Ziel des Spiels ist nicht sehr klarm definiert. Es ist nicht sofort klar, was der Spieler erreichen soll, indem er Firewall und Sicherheitskräfte hinzufügt.
+**3. Ist das Spielziel verständlich?**
+Das Spielziel ist verständlich. Das Spielerziel besteht darin, die Netzwerkressourcen durch verschiedene Services zu optimieren, ohne den Netzwerkstatus unter Null zu bringen. Das Punktesteuerelement fügt eine zusätzliche Herausforderung hinzu.
 
-4. Gibt es Start, Spielverlauf und Spielende?
-   Ja, das Spiel hat einen Spielverlauf mit der Interaktion des Spielers durch Hinzufügen von Firewalln und Sicherheitskräften. Das Spiel läuft in einer unendlichen Schleife (gameLoop), ohne ein offiziellen Spielende.
+**4. Gibt es Start, Spielverlauf und Spielende?**
+Ja, das Spiel hat einen klaren Startpunkt (Start-Schaltfläche), einen Spielverlauf (zufällige Virus-Eintritte, Netzwerkstatusänderungen) und einen Spielende (Game Over bei Netzwerkstatus unter Null).
 
-5. Funktioniert die Interaktion?
-   Ja, die Interaktion funktioniert korrekt. Der Spieler kann mit den Knöpfen "Firewall hinzufügen" und "Sicherheitskraft hinzufügen" oder durch drücken der Tasten "f" und "s" Firewalln und Sicherheitskräfte hinzufügen.
+**5. Funktioniert die Interaktion?**
+Die Interaktion funktioniert korrekt. Die Schaltflächen zum Anwenden von Firewall, Anti-Virus und Malware-Scan reagieren wie erwartet auf Klicks und aktualisieren den Netzwerkstatus und die CPU/Speicher-Nutzung. Das Punktesteuerelement wird ebenfalls aktualisiert.
 
-6. Ist das Thema Hochschul-IT/CIO/Cybersecurity erkennbar?
-   Ja, das Thema Cybersecurity ist erkennbar. Die Benennung des Spiels als "Campus-Security-Challenge" und die Verwendung von Begriffen wie Firewall und Sicherheitskraft geben einen klaren Hinweis darauf.
+**6. Ist das Thema Hochschul-IT/CIO/Cybersecurity erkennbar?**
+Ja, das Thema ist sehr erkennbar. Die Metaphern mit dem Campus und IT-Services wie Firewall, Anti-Virus und Malware-Scan spiegeln eine typische IT-Umgebung wider.
 
-7. Welche drei konkreten Verbesserungen sollte der Developer Agent umsetzen?
-   1. **Erleichtern Sie das Spielziel**: Fügen Sie eine klare Nachricht oder Anleitung hinzu, die erklärt, was der Spieler erreichen soll.
-   
-   2. **Fügen Sie ein Spielende**: Implementieren Sie eine Bedingung, bei der das Spiel endet. Zum Beispiel, wenn der Spieler mehr als bestimmte Punkte erreicht hat oder wenn er alle verfügbaren Systeme sichert.
+**7. Welche drei konkreten Verbesserungen sollte der Developer Agent umsetzen?**
+1. **Verbesserte Benutzerfreundlichkeit**: Die Nachrichten (z.B. "Neuer Virus!") könnten eindeutiger und informativer sein, um den Spieler besser einzuschüben.
+2. **Visualisierung der Ressourcen**: Eine visuelle Anzeige der CPU- und Speicher-Nutzung, z.B. mit Balkendiagrammen oder Progress-Bars, könnte das Spiel interaktiv machen und verständlicher gestalten.
+3. **Erweiterung des Spielverlaufs**: Die Möglichkeit, verschiedene Schwierigkeitsgrade anzubieten (z.B. durch Einstellung von Startwerten für Netzwerkstatus, CPU/Speicher-Nutzung) oder zusätzliche Ressourcen und Services hinzuzufügen, könnte den Spielerinteresse anhalten.
 
-   3. **Erweitern Sie die Interaktion**: Fügen Sie zusätzliche Funktionen hinzu, wie zum Beispiel Feinde, die versuchen, Systeme zu brechen, oder Herausforderungen, die der Spieler überwinden muss.
-
-Entscheidung: Freigabe mit kleinen Änderungen
+**Entscheidung**: Freigabe mit kleinen Änderungen
