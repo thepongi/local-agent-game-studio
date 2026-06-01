@@ -1,26 +1,30 @@
-1. Spieltitel: "Campus CyberQuest"
+**Spiel-Spezifikation für CIOs von Hochschulen**
 
-2. Kurzidee:
-   Ein CIO muss durch eine sichere IT-Umgebung navigieren, um wichtige Daten zu beschützen und ein neues Campus-System einzurichten.
+1. **Spieltitel:** "CampusTech: Cybersecurity Challenge"
 
-3. Zielgruppe:
-   Hochschulleitungsteams, CIOs, IT-Betreuer
+2. **Kurzidee:** Spieler müssen IT-Systeme einer virtuellen Universität vor Cyberangriffen schützen.
 
-4. Spielmechanik:
-   Der Spieler steuert einen virtuellen CIO durch eine IT-Szene, die verschiedene Aufgaben wie Firewall-Einstellungen, Antivirus-Updates und Benutzersicherheit erfordert. Er muss Entscheidungen treffen, um Rätsel zu lösen und das System erfolgreich sicherzustellen.
+3. **Zielgruppe:** CIOs und IT-Bereiche von Hochschulen
 
-5. Gewinn-/Verlierbedingung:
-   Sieg: Der Spieler navigiert den gesamten IT-Pfad erfolgreich ohne Fehler durch.
-   Verloren: Der Spieler macht einen schwerwiegenderen Fehler oder verliert alle Systempunkte.
+4. **Spielmechanik:** 
+   - Spieler erhalten ein Budget um verschiedene Sicherheitsmaßnahmen anzuschaffen (z.B., Firewall, Anti-Virus-Software).
+   - Sie müssen im Spielumfeld Cyberangriffe simulieren (z.B., DDoS-Angriff, Phishing-Mails).
+   - Jede erfolgreiche Angriff minimiert das Budget und kann wichtige IT-Systeme beschädigen.
+   - Spieler müssen Entscheidungen treffen, welche Maßnahmen zu implementieren sind, um den Cyberangriff abzuwehren.
 
-6. Anforderungen an die index.html:
-   - HTML5-Struktur
-   - CSS für Layout und Design
-   - JavaScript für Interaktivität und Spiellogik
-   - Bildern für das IT-Szenario und UI-Elemente
-   - Audio-Dateien (optional)
+5. **Gewinn-/Verlierbedingung:** 
+   - Das Spiel gewinnt die Spieler wenn sie alle IT-Systeme vor Cyberangriffen schützen können.
+   - Sie verlieren das Spiel, wenn ihre Budgetverbleib nicht ausreicht oder wichtige Systeme beschädigt werden.
 
-7. Drei mögliche Erweiterungen:
-   a) Multiplayer-Modus: CIOs können sich gegenseitig ansetzen, um die Schwierigkeit zu erhöhen.
-   b) Zeitbonus: Spieler erhalten bonuspunkte für schnelle und korrekte Antworten.
-   c) Herausforderungsmodus: Erhöhte Anzahl von Rätseln und schwierigeren Entscheidungen.
+6. **Anforderungen an die index.html:**
+   - HTML5 und CSS3 für die Benutzeroberfläche
+   - JavaScript für die interaktive Logik des Spiels
+   - Interne CSS-Datei (nicht inline-Stile)
+   - Interne JavaScript-Datei (keine externen Bibliotheken)
+   - Bildressourcen im gleichen Ordner wie index.html
+
+7. **Mögliche Erweiterungen:**
+   - Multiplayer-Version für Teams-Wettbewerbe
+   - Schwierigkeitsgradsteuerung durch verschiedene IT-Systeme
+   - Anpassbare Budgetgrenzen je nach Institutionstyp
+   - Leaderboard zum Vergleichen von Teamleistungen

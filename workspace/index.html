@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>CampusTech: Cybersecurity Challenge</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f9; }
+        .container { width: 80%; margin: auto; text-align: center; }
+        .budget { width: 300px; height: 20px; background-color: lightblue; margin-bottom: 10px; font-size: 16px; padding: 5px; }
+        .system { width: 70px; height: 70px; border: 1px solid black; display: inline-block; margin-right: 10px; cursor: pointer; background-color: #fff; position: relative; }
+        .icon { width: 50%; height: auto; margin-top: 10%; }
+        .info { font-size: 14px; margin-top: 5px; }
+        .scoreboard { margin-top: 20px; font-size: 18px; color: #333; }
+        .end-game { display: none; font-size: 24px; margin-top: 20px; color: red; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>CampusTech: Cybersecurity Challenge</h1>
+        <div class="budget" id="budget">Budget: $1000</div>
+        <div id="systems">
+            <div class="system server"><img src="server.png" alt="Server" class="icon"><div class="info">Server</div></div>
+            <div class="system router"><img src="router.png" alt="Router" class="icon"><div class="info">Router</div></div>
+        </div>
+        <div id="scoreboard">Score: 0</div>
+        <div id="end-game">Game Over!</div>
+    </div>
+    <script>
+        const budget = document.getElementById('budget');
+        let currentBudget = 1000;
+        const systems = document.querySelectorAll('.system');
+        let score = 0;
+
+        function updateBudget(amount) {
+            currentBudget += amount;
+            budget.textContent = `Budget: $${currentBudget}`;
+            if (currentBudget <= 0) {
+                gameover();
+            }
+        }
+
+        function addScore(points) {
+            score += points;
+            document.getElementById('scoreboard').textContent = `Score: ${score}`;
+        }
+
+        function gameover() {
+            document.getElementById('end-game').style.display = 'block';
+            systems.forEach(system => system.removeEventListener('click', handleSystemClick));
+        }
+
+        function handleSystemClick(e) {
+            const clickedSystem = e.target;
+            if (currentBudget >= 100 && !clickedSystem.classList.contains('protected')) {
+                updateBudget(-100);
+                clickedSystem.classList.add('protected');
+                addScore(50);
+                alert(`Sicherheitsmaßnahme auf ${clickedSystem.querySelector('.info').textContent} installiert`);
+            } else if (currentBudget < 100) {
+                alert("Nicht genügend Budget");
+            }
+        }
+
+        systems.forEach(system => system.addEventListener('click', handleSystemClick));
+
+        setInterval(() => {
+            const randomIndex = Math.floor(Math.random() * systems.length);
+            const randomSystem = systems[randomIndex];
+            if (!randomSystem.classList.contains('protected')) {
+                alert(`Cyberangriff auf ${randomSystem.querySelector('.info').textContent} erfolgreich`);
+                updateBudget(-100);
+            }
+        }, 3000);
+
+    </script>
+</body>
+</html>

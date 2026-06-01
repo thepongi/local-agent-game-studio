@@ -143,6 +143,96 @@ Schreibe klar, knapp und umsetzbar auf Deutsch.
     print("Game Designer Agent fertig.")
     print(f"Geschrieben: {output_file}")
 
+def extract_html(output: str) -> str:
+    """
+    Falls das Modell Markdown-Codeblöcke zurückgibt, extrahieren wir den HTML-Code.
+    """
+    text = output.strip()
+
+    if "```html" in text:
+        start = text.find("```html") + len("```html")
+        end = text.find("```", start)
+        return text[start:end].strip()
+
+    if "```" in text:
+        start = text.find("```") + len("```")
+        end = text.find("```", start)
+        return text[start:end].strip()
+
+    if "<!DOCTYPE html" in text:
+        start = text.find("<!DOCTYPE html")
+        return text[start:].strip()
+
+    if "<html" in text:
+        start = text.find("<html")
+        return text[start:].strip()
+
+    return text
+
+def run_developer_agent():
+    agent_name = "Developer Agent"
+
+    spec_file = WORKSPACE / "spec.md"
+    design_file = WORKSPACE / "design.md"
+
+    if not spec_file.exists():
+        raise FileNotFoundError("workspace/spec.md fehlt. Bitte zuerst den Product Owner Agent ausführen.")
+
+    if not design_file.exists():
+        raise FileNotFoundError("workspace/design.md fehlt. Bitte zuerst den Game Designer Agent ausführen.")
+
+    spec = spec_file.read_text(encoding="utf-8")
+    design = design_file.read_text(encoding="utf-8")
+
+    prompt = f"""
+Du bist der Developer Agent in einem lokalen Agenten-Workshop.
+
+Du bekommst eine Spezifikation und ein Game Design.
+
+SPEZIFIKATION:
+---
+{spec}
+---
+
+GAME DESIGN:
+---
+{design}
+---
+
+Aufgabe:
+Erstelle ein vollständiges kleines Browser-Spiel als eine einzige index.html-Datei.
+
+Strikte Anforderungen:
+- Gib NUR den vollständigen HTML-Code aus.
+- Keine Markdown-Erklärung.
+- Keine Code-Fences.
+- Alles muss in einer Datei funktionieren.
+- Verwende HTML, CSS und Vanilla JavaScript.
+- Keine externen Libraries.
+- Kein Backend.
+- Kein Internetzugriff.
+- Das Spiel muss direkt im Browser laufen.
+- Das Spiel soll optisch ordentlich wirken.
+- Es soll einen Startbereich, Spielfeld, Punktestand, Timer oder Leben und ein Spielende geben.
+- Das Thema soll zu Hochschul-IT, CIOs, Campus-Systemen oder Cybersecurity passen.
+- Der Code soll robust und verständlich sein.
+
+Erzeuge jetzt die vollständige index.html.
+"""
+
+    output = call_ollama(prompt)
+    html = extract_html(output)
+
+    output_file = WORKSPACE / "index.html"
+    output_file.write_text(html, encoding="utf-8")
+
+    log_run(agent_name, prompt, output)
+
+    print("Developer Agent fertig.")
+    print(f"Geschrieben: {output_file}")
+
+
 if __name__ == "__main__":
     run_product_owner_agent()
     run_game_designer_agent()
+    run_developer_agent()
