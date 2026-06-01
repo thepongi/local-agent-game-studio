@@ -1,3 +1,4 @@
+import sys
 import json
 import urllib.request
 from pathlib import Path
@@ -343,9 +344,49 @@ Erzeuge jetzt die vollständige verbesserte index.html.
 
 
 
+def show_help():
+    print("""
+Local Agent Game Studio
+
+Verwendung:
+  python orchestrator.py product   Erstellt workspace/spec.md
+  python orchestrator.py design    Erstellt workspace/design.md
+  python orchestrator.py develop   Erstellt workspace/index.html
+  python orchestrator.py test      Erstellt workspace/test-report.md
+  python orchestrator.py revise    Verbessert workspace/index.html anhand des Testberichts
+  python orchestrator.py all       Führt alle Agenten nacheinander aus
+""")
+
+
 if __name__ == "__main__":
-    run_product_owner_agent()
-    run_game_designer_agent()
-    run_developer_agent()
-    run_tester_agent()
-    run_developer_revision_agent()
+    if len(sys.argv) < 2:
+        show_help()
+        sys.exit(0)
+
+    command = sys.argv[1].lower()
+
+    if command == "product":
+        run_product_owner_agent()
+
+    elif command == "design":
+        run_game_designer_agent()
+
+    elif command == "develop":
+        run_developer_agent()
+
+    elif command == "test":
+        run_tester_agent()
+
+    elif command == "revise":
+        run_developer_revision_agent()
+
+    elif command == "all":
+        run_product_owner_agent()
+        run_game_designer_agent()
+        run_developer_agent()
+        run_tester_agent()
+        run_developer_revision_agent()
+
+    else:
+        print(f"Unbekannter Befehl: {command}")
+        show_help()

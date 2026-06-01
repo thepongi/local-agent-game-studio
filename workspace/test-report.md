@@ -1,26 +1,27 @@
-**Testbericht für Campus CyberQuest**
+# Testbericht für Campus CyberQuest
 
-**1. Läuft der Code grundsätzlich im Browser?**
-Ja, der Code läuft grundsätzlich im Browser. Die Seite wird korrekt geladen und funktioniert nach einigen Sekunden.
+## 1. Läuft der Code grundsätzlich im Browser?
+Ja, der Code läuft grundsätzlich im Browser und das Spiel wird korrekt angezeigt.
 
-**2. Gibt es offensichtliche JavaScript-Fehler?**
-Es gibt keine offensichtlichen JavaScript-Fehler im Code. Alle Funktionen und Variablen sind korrekt definiert.
+## 2. Gibt es offensichtliche JavaScript-Fehler?
+Nein, es gibt keine offensichtlichen JavaScript-Fehler in dem bereitgestellten Code.
 
-**3. Ist das Spielziel verständlich?**
-Das Spielziel ist verständlich. Das Spielerziel besteht darin, die Netzwerkressourcen durch verschiedene Services zu optimieren, ohne den Netzwerkstatus unter Null zu bringen. Das Punktesteuerelement fügt eine zusätzliche Herausforderung hinzu.
+## 3. Ist das Spielziel verständlich?
+Ja, das Spielziel ist verständlich. Das Hauptziel des Spiels besteht darin, Netzwerkressourcen wie CPU und Speicher zu optimieren und gleichzeitig Schadsoftware abzubauen, während man gegen zufällige Virus-Einträge verteidigt.
 
-**4. Gibt es Start, Spielverlauf und Spielende?**
-Ja, das Spiel hat einen klaren Startpunkt (Start-Schaltfläche), einen Spielverlauf (zufällige Virus-Eintritte, Netzwerkstatusänderungen) und einen Spielende (Game Over bei Netzwerkstatus unter Null).
+## 4. Gibt es Start, Spielverlauf und Spielende?
+Ja, das Spiel hat einen eindeutigen Start (der Button "Start Spiel"), einen dynamischen Spielverlauf (die Änderungen der Netzwerkressourcen und des Punktesystems), und ein Spielende (wenn der Netzwerkstatus <= 0).
 
-**5. Funktioniert die Interaktion?**
-Die Interaktion funktioniert korrekt. Die Schaltflächen zum Anwenden von Firewall, Anti-Virus und Malware-Scan reagieren wie erwartet auf Klicks und aktualisieren den Netzwerkstatus und die CPU/Speicher-Nutzung. Das Punktesteuerelement wird ebenfalls aktualisiert.
+## 5. Funktioniert die Interaktion?
+Ja, die Interaktion funktioniert wie erwartet. Die Benutzer können durch Klicken auf verschiedene Buttons Aktionen wie Firewall, Anti-Virus-Scan und Malware-Scan ausführen.
 
-**6. Ist das Thema Hochschul-IT/CIO/Cybersecurity erkennbar?**
-Ja, das Thema ist sehr erkennbar. Die Metaphern mit dem Campus und IT-Services wie Firewall, Anti-Virus und Malware-Scan spiegeln eine typische IT-Umgebung wider.
+## 6. Ist das Thema Hochschul-IT/CIO/Cybersecurity erkennbar?
+Ja, das Spiel hat ein thematische Fokus auf IT/CIO/Cybersecurity, da es sich um Netzwerkressourcen, Schadsoftware und deren Behandlung handelt.
 
-**7. Welche drei konkreten Verbesserungen sollte der Developer Agent umsetzen?**
-1. **Verbesserte Benutzerfreundlichkeit**: Die Nachrichten (z.B. "Neuer Virus!") könnten eindeutiger und informativer sein, um den Spieler besser einzuschüben.
-2. **Visualisierung der Ressourcen**: Eine visuelle Anzeige der CPU- und Speicher-Nutzung, z.B. mit Balkendiagrammen oder Progress-Bars, könnte das Spiel interaktiv machen und verständlicher gestalten.
-3. **Erweiterung des Spielverlaufs**: Die Möglichkeit, verschiedene Schwierigkeitsgrade anzubieten (z.B. durch Einstellung von Startwerten für Netzwerkstatus, CPU/Speicher-Nutzung) oder zusätzliche Ressourcen und Services hinzuzufügen, könnte den Spielerinteresse anhalten.
+## Verbesserungen
+1. **Textanpassung**: Einige Texte im Spiel (z.B. "Netzwerkstatus", "CPU", "Speicher") könnten für eine breitere Breite von Nutzern klarer formuliert werden.
+2. **Benutzerfreundlichkeit**: Bei der Anzeige der Netzwerkressourcen könnte es hilfreich sein, auch den genauen Wert zu anzeigen, nicht nur in Prozent.
+3. **Visualisierung der Schadsoftware-Einträge**: Die Benutzer sollten besser informiert werden, wenn ein neuer Virus entsteht, z.B. durch einen visuellen Hinweis oder eine Nachricht.
 
-**Entscheidung**: Freigabe mit kleinen Änderungen
+## Entscheidung
+Freigabe mit kleinen Änderungen
