@@ -4,7 +4,8 @@ import urllib.request
 from pathlib import Path
 from datetime import datetime
 
-MODEL = "qwen2.5-coder:7b"
+#MODEL = "qwen2.5-coder:7b"
+MODEL = "qwen3-coder:30b"
 OLLAMA_URL = "http://localhost:11434/api/generate"
 
 BASE = Path(__file__).parent
@@ -58,7 +59,7 @@ def run_product_owner_agent():
 Du bist der Product Owner Agent in einem lokalen Agenten-Workshop.
 
 Aufgabe:
-Erstelle eine kurze Spezifikation für ein kleines Browser-Spiel für CIOs von Hochschulen.
+Erstelle eine kurze Spezifikation für ein kleines Browser-Spiel für CIOs von Hochschulen. In Anlehnung an Atari Breakout oder Tetris oder eniem anderen Klassiker.
 
 Rahmen:
 - Das Spiel soll in einer einzigen index.html-Datei laufen.
