@@ -30,12 +30,12 @@ Im Projektordner: python orchestrator.py
 Nun werden die verfügbaren Optionen angezeigt.
 
 Einzelne Agenten können auch direkt gestartet werden:
-python orchestrator.py product
-python orchestrator.py design
-python orchestrator.py develop
-python orchestrator.py test
-python orchestrator.py revise
-python orchestrator.py governance
+- python orchestrator.py product
+- python orchestrator.py design
+- python orchestrator.py develop
+- python orchestrator.py test
+- python orchestrator.py revise
+- python orchestrator.py governance
 
 **Alle Agenten nacheinander starten:**
 python orchestrator.py all
@@ -44,10 +44,10 @@ python orchestrator.py all
 Das Spiel wird unter ./workspace/index.html erzeugt und sollte direkt mit dem Browser aufgerufen werden können.
 
 ## Wichtige Dateien
-orchestrator.py                  Hauptskript für die Agenten
-workspace/spec.md                Spezifikation des Product Owner Agent
-workspace/design.md              Game Design
-workspace/index.html             erzeugtes Browser-Spiel
-workspace/test-report.md         Testbericht
-workspace/governance-review.md   Governance-Prüfung
-audit/runs.jsonl                 lokales Protokoll der Agentenläufe
+orchestrator.py                  Hauptskript für die Agenten </br>
+workspace/spec.md                Spezifikation des Product Owner Agent</br>
+workspace/design.md              Game Design</br>
+workspace/index.html             erzeugtes Browser-Spiel</br>
+workspace/test-report.md         Testbericht</br>
+workspace/governance-review.md   Governance-Prüfung</br>
+audit/runs.jsonl                 lokales Protokoll der Agentenläufe</br>
