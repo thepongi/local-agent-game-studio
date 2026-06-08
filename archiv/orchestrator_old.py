@@ -5,10 +5,8 @@ from pathlib import Path
 from datetime import datetime
 
 #MODEL = "qwen2.5-coder:7b"
+#MODEL = "qwen3-coder:30b"
 MODEL = "codellama:7b"
-DEVELOP_MODEL = MODEL
-# DEVELOP_MODEL = "qwen3-coder:30b"
-
 OLLAMA_URL = "http://localhost:11434/api/generate"
 
 BASE = Path(__file__).parent
@@ -62,12 +60,12 @@ def run_product_owner_agent():
 Du bist der Product Owner Agent in einem lokalen Agenten-Workshop.
 
 Aufgabe:
-Erstelle eine kurze Spezifikation für ein kleines Browser-Spiel.
+Erstelle eine kurze Spezifikation für ein kleines Browser-Spiel für CIOs von Hochschulen. In Anlehnung an Atari Breakout oder Tetris oder eniem anderen Klassiker.
 
 Rahmen:
 - Das Spiel soll in einer einzigen index.html-Datei laufen.
 - Keine externen Libraries.
-- Thema: Digitalisierung von Hochschulen, zum Beispiel Bürokratieabbau.
+- Thema: Hochschul-IT, Cybersecurity, Campus-Systeme oder IT-Service.
 - Das Ergebnis soll in 3 Minuten erklärbar sein.
 - Die Spezifikation soll für einen Developer Agent verständlich sein.
 
@@ -276,8 +274,7 @@ Wichtig:
 - Gib am Ende eine Entscheidung: "Freigabe", "Freigabe mit kleinen Änderungen" oder "Keine Freigabe".
 """
 
-    #output = call_ollama(prompt)
-    output = call_ollama(prompt, DEVELOP_MODEL)
+    output = call_ollama(prompt)
 
     output_file = WORKSPACE / "test-report.md"
     output_file.write_text(output, encoding="utf-8")
@@ -347,82 +344,6 @@ Erzeuge jetzt die vollständige verbesserte index.html.
     print("Developer Revision Agent fertig.")
     print(f"Verbessert: {output_file}")
 
-def run_governance_agent():
-    agent_name = "Governance Agent"
-
-    spec_file = WORKSPACE / "spec.md"
-    design_file = WORKSPACE / "design.md"
-    html_file = WORKSPACE / "index.html"
-    test_file = WORKSPACE / "test-report.md"
-
-    missing = [
-        str(path) for path in [spec_file, design_file, html_file, test_file]
-        if not path.exists()
-    ]
-
-    if missing:
-        raise FileNotFoundError("Folgende Dateien fehlen: " + ", ".join(missing))
-
-    spec = spec_file.read_text(encoding="utf-8")
-    design = design_file.read_text(encoding="utf-8")
-    html = html_file.read_text(encoding="utf-8")
-    test_report = test_file.read_text(encoding="utf-8")
-
-    prompt = f"""
-Du bist der Governance Agent in einem lokalen Agenten-Workshop mit CIOs von Hochschulen.
-
-Du prüfst nicht primär, ob das Spiel schön ist, sondern ob der Agentenprozess governance-tauglich ist.
-
-SPEZIFIKATION:
----
-{spec}
----
-
-GAME DESIGN:
----
-{design}
----
-
-HTML-CODE:
----
-{html}
----
-
-TESTBERICHT:
----
-{test_report}
----
-
-Aufgabe:
-Erstelle eine Governance-Prüfung des bisherigen Agentenprozesses.
-
-Bewerte:
-1. Nachvollziehbarkeit der Agentenarbeit
-2. Trennung der Rollen
-3. Risiken durch automatisches Überschreiben von Dateien
-4. Risiken durch unkontrollierte Codegenerierung
-5. Datenschutz- und Sicherheitsaspekte
-6. Eignung für eine CIO-Demo
-7. Welche Freigabepunkte ein Mensch setzen sollte
-8. Welche Aktionen Agenten auf keinen Fall automatisch durchführen sollten
-
-Gib außerdem aus:
-- Drei konkrete Governance-Regeln für diesen Workshop
-- Eine Ampelbewertung: Grün, Gelb oder Rot
-- Eine kurze CIO-Zusammenfassung in maximal fünf Sätzen
-
-Schreibe klar und praxisnah auf Deutsch.
-"""
-
-    output = call_ollama(prompt)
-
-    output_file = WORKSPACE / "governance-review.md"
-    output_file.write_text(output, encoding="utf-8")
-
-    log_run(agent_name, prompt, output)
-
-    print("Governance Agent fertig.")
-    print(f"Geschrieben: {output_file}")
 
 
 def show_help():
@@ -435,7 +356,6 @@ Verwendung:
   python orchestrator.py develop   Erstellt workspace/index.html
   python orchestrator.py test      Erstellt workspace/test-report.md
   python orchestrator.py revise    Verbessert workspace/index.html anhand des Testberichts
-  python orchestrator.py governance   Erstellt workspace/governance-review.md
   python orchestrator.py all       Führt alle Agenten nacheinander aus
 """)
 
@@ -462,16 +382,12 @@ if __name__ == "__main__":
     elif command == "revise":
         run_developer_revision_agent()
 
-    elif command == "governance":
-        run_governance_agent()
-
     elif command == "all":
         run_product_owner_agent()
         run_game_designer_agent()
         run_developer_agent()
         run_tester_agent()
         run_developer_revision_agent()
-        run_governance_agent()
 
     else:
         print(f"Unbekannter Befehl: {command}")
