@@ -9,7 +9,7 @@ Beispiele für mögliche Agenten:
 - Developer Agent erzeugt eine spielbare index.html
 - Tester Agent prüft das Ergebnis
 - Developer Revision Agent verbessert das Spiel
-</br>~~- Governance Agent bewertet den Agentenprozess~~
+- Governance Agent bewertet den Agentenprozess
 
 Alle Schritte sollen auch lokal auf dem eigenen Rechner mit Ollama und Python ausführbar sein.
 
@@ -36,7 +36,7 @@ Einzelne Agenten können auch direkt gestartet werden:
 - python orchestrator.py develop
 - python orchestrator.py test
 - python orchestrator.py revise
-</br>~~- python orchestrator.py governance~~
+- python orchestrator.py governance
 
 **Alle Agenten nacheinander starten: python orchestrator.py all**
 Dauer je nach GPU/CPU Leistung von wenigen Sekunden bis einigen/vielen Minuten.
@@ -49,3 +49,6 @@ orchestrator.py                  Hauptskript für die Agenten </br>
 workspace/spec.md                Spezifikation des Product Owner Agent</br>
 workspace/design.md              Game Design</br>
 workspace/index.html             erzeugtes Browser-Spiel</br>
+workspace/test-report.md         Test-Report</br>
+workspace/governance-review.md   Rückmeldung vom Governance Agenten</br>
+audit/runs.jsonl                 Audit-Ergebnisse</br>
