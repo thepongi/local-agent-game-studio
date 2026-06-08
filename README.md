@@ -17,7 +17,6 @@ Alle Schritte sollen auch lokal auf dem eigenen Rechner mit Ollama und Python au
 - Python (https://www.python.org/downloads/)
 - Ollama (https://ollama.com/download)
 
-
 ## Erste Schritte:
 - Sprachmodell(e) installieren, zum Beispiel: ollama pull codellama:7b 
 - Installierte Sprachmodelle prüfen: ollama list
@@ -25,4 +24,30 @@ Alle Schritte sollen auch lokal auf dem eigenen Rechner mit Ollama und Python au
 ## Aufruf in Shell
 - Anzeige der Agenten: python orchestrator.py
 - Ausführen des Product Owner Agenten: python orchestrator.py product -> es sollte \local-agent-game-studio-main\workspace\spec.md erstellt werden; Dauer je nach GPU/CPU Leistung von wenigen Sekunden bis einigen Minuten.
-- 
+
+## Agenten starten
+Im Projektordner: python orchestrator.py
+Nun werden die verfügbaren Optionen angezeigt.
+
+Einzelne Agenten können auch direkt gestartet werden:
+python orchestrator.py product
+python orchestrator.py design
+python orchestrator.py develop
+python orchestrator.py test
+python orchestrator.py revise
+python orchestrator.py governance
+
+**Alle Agenten nacheinander starten:**
+python orchestrator.py all
+
+## Ergebnis prüfen
+Das Spiel wird unter ./workspace/index.html erzeugt und sollte direkt mit dem Browser aufgerufen werden können.
+
+## Wichtige Dateien
+orchestrator.py                  Hauptskript für die Agenten
+workspace/spec.md                Spezifikation des Product Owner Agent
+workspace/design.md              Game Design
+workspace/index.html             erzeugtes Browser-Spiel
+workspace/test-report.md         Testbericht
+workspace/governance-review.md   Governance-Prüfung
+audit/runs.jsonl                 lokales Protokoll der Agentenläufe
