@@ -5,9 +5,8 @@ from pathlib import Path
 from datetime import datetime
 
 #MODEL = "qwen2.5-coder:7b"
-MODEL = "codellama:7b"
-DEVELOP_MODEL = MODEL
-# DEVELOP_MODEL = "qwen3-coder:30b"
+MODEL = "qwen3-coder:30b"
+#MODEL = "codellama:7b"
 
 OLLAMA_URL = "http://localhost:11434/api/generate"
 
@@ -40,7 +39,6 @@ def call_ollama(prompt: str) -> str:
 
     return result["response"]
 
-
 def log_run(agent_name: str, prompt: str, output: str):
     log_file = AUDIT / "runs.jsonl"
     entry = {
@@ -68,7 +66,7 @@ Rahmen:
 - Das Spiel soll in einer einzigen index.html-Datei laufen.
 - Keine externen Libraries.
 - Thema: Digitalisierung von Hochschulen, zum Beispiel Bürokratieabbau.
-- Das Ergebnis soll in 3 Minuten erklärbar sein.
+- Das Ergebnis soll in 2 Minuten erklärbar sein.
 - Die Spezifikation soll für einen Developer Agent verständlich sein.
 
 Gib aus:
@@ -114,15 +112,15 @@ Du bekommst diese Spiel-Spezifikation:
 ---
 
 Aufgabe:
-Erstelle daraus ein konkretes Game Design für ein sehr kleines Browser-Spiel.
+Erstelle daraus ein konkretes Game Design für ein kleines Browser-Spiel.
 
 Rahmen:
 - Eine einzige index.html-Datei.
 - Kein Backend.
 - Keine externen Libraries.
 - Steuerung mit Maus oder Tastatur.
-- Muss in 3 Minuten erklärbar und spielbar sein.
-- Zielgruppe: CIOs von Hochschulen im Workshop "Hands-on agentic AI".
+- Muss in 2 Minuten erklärbar und spielbar sein.
+- Zielgruppe: CIOs von Hochschulen.
 
 Gib aus:
 1. Spielziel
@@ -217,9 +215,8 @@ Strikte Anforderungen:
 - Kein Backend.
 - Kein Internetzugriff.
 - Das Spiel muss direkt im Browser laufen.
-- Das Spiel soll optisch ordentlich wirken.
+- Das Spiel soll optisch aufgeräumt und ansprechend wirken.
 - Es soll einen Startbereich, Spielfeld, Punktestand, Timer oder Leben und ein Spielende geben.
-- Das Thema soll zu Hochschul-IT, CIOs, Campus-Systemen oder Cybersecurity passen.
 - Der Code soll robust und verständlich sein.
 
 Erzeuge jetzt die vollständige index.html.
@@ -266,8 +263,7 @@ Bewerte:
 3. Ist das Spielziel verständlich?
 4. Gibt es Start, Spielverlauf und Spielende?
 5. Funktioniert die Interaktion?
-6. Ist das Thema Hochschul-IT/CIO/Cybersecurity erkennbar?
-7. Welche drei konkreten Verbesserungen sollte der Developer Agent umsetzen?
+6. Welche drei konkreten Verbesserungen sollte der Developer Agent umsetzen?
 
 Wichtig:
 - Schreibe einen klaren Testbericht auf Deutsch.
@@ -276,8 +272,7 @@ Wichtig:
 - Gib am Ende eine Entscheidung: "Freigabe", "Freigabe mit kleinen Änderungen" oder "Keine Freigabe".
 """
 
-    #output = call_ollama(prompt)
-    output = call_ollama(prompt, DEVELOP_MODEL)
+    output = call_ollama(prompt)
 
     output_file = WORKSPACE / "test-report.md"
     output_file.write_text(output, encoding="utf-8")
@@ -330,7 +325,6 @@ Strikte Anforderungen:
 - Keine externen Libraries.
 - Kein Backend.
 - Kein Internetzugriff.
-- Behalte das Thema Hochschul-IT/CIO/Cybersecurity bei.
 - Verbessere Verständlichkeit, Spielbarkeit und Robustheit.
 
 Erzeuge jetzt die vollständige verbesserte index.html.
