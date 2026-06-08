@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CampusDigital</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #f4f6f9;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #2c3e50;
+    }
+
+    .game-container {
+      width: 100%;
+      max-width: 800px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      padding: 20px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eee;
+    }
+
+    #timer {
+      font-size: 2em;
+      font-weight: bold;
+      color: #27ae60;
+    }
+
+    #points {
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #27ae60;
+    }
+
+    .process-list {
+      margin-bottom: 20px;
+    }
+
+    .process-card {
+      display: flex;
+      align-items: center;
+      padding: 12px;
+      margin-bottom: 10px;
+      background-color: #f9f9f9;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+      border-left: 4px solid #3498db;
+    }
+
+    .process-card.selected {
+      background-color: #e3f2fd;
+      border-left: 4px solid #2196f3;
+    }
+
+    .process-card input[type="checkbox"] {
+      margin-right: 10px;
+      transform: scale(1.2);
+    }
+
+    .process-name {
+      flex-grow: 1;
+    }
+
+    .process-costs {
+      font-size: 0.9em;
+      color: #7f8c8d;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    button {
+      padding: 12px 20px;
+      font-size: 1em;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    #start-btn {
+      background-color: #27ae60;
+      color: white;
+    }
+
+    #start-btn:hover {
+      background-color: #219653;
+    }
+
+    #reset-btn {
+      background-color: #e74c3c;
+      color: white;
+    }
+
+    #reset-btn:hover {
+      background-color: #c0392b;
+    }
+
+    .feedback {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #fff8e1;
+      border-radius: 6px;
+      text-align: center;
+      font-weight: bold;
+      display: none;
+    }
+
+    .game-over {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      visibility: hidden;
+      opacity: 0;
+      transition: all 0.5s ease;
+    }
+
+    .game-over.show {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .result-card {
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      max-width: 90%;
+    }
+
+    .result-card h2 {
+      margin-bottom: 15px;
+      color: #2c3e50;
+    }
+
+    .score-display {
+      font-size: 2em;
+      font-weight: bold;
+      margin: 20px 0;
+      color: #3498db;
+    }
+
+    @media (max-width: 600px) {
+      .header {
+        flex-direction: column;
+        gap: 10px;
+      }
+      
+      .controls {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      button {
+        width: 80%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>CampusDigital</h1>
+  
+  <div class="game-container">
+    <div class="header">
+      <div id="timer">3:00</div>
+      <div id="points">Punkte: 0</div>
+    </div>
+
+    <div class="process-list" id="processes"></div>
+
+    <div class="controls">
+      <button id="start-btn">Digitalisieren</button>
+      <button id="reset-btn">Neustart</button>
+    </div>
+
+    <div class="feedback" id="feedback">
+      Digitalisierung erfolgreich!
+    </div>
+  </div>
+
+  <div class="game-over" id="game-over">
+    <div class="result-card">
+      <h2 id="result-title">Spiel beendet</h2>
+      <div class="score-display" id="final-score">0</div>
+      <p id="result-message"></p>
+      <button onclick="resetGame()">Neustart</button>
+    </div>
+  </div>
+
+  <script>
+    const processes = [
+      { name: "Prüfungsanmeldung", cost: 2, points: 10, progress: 0 },
+      { name: "Ressourcenanfrage", cost: 3, points: 15, progress: 0 },
+      { name: "Anmeldung Studiengang", cost: 4, points: 20, progress: 0 },
+      { name: "Semesteranmeldung", cost: 3, points: 12, progress: 0 },
+      { name: "Bewerbung Master", cost: 5, points: 25, progress: 0 },
+      { name: "Forschungsantrag", cost: 6, points: 30, progress: 0 }
+    ];
+
+    let selected = [];
+    let points = 0;
+    let timeLeft = 180; // 3 Minuten in Sekunden
+    let timer;
+    let gameActive = false;
+
+    function initGame() {
+      const processList = document.getElementById("processes");
+      processList.innerHTML = '';
+
+      processes.forEach((p, i) => {
+        const div = document.createElement("div");
+        div.className = "process-card";
+        div.id = `card-${i}`;
+        div.innerHTML = `
+          <input type="checkbox" id="proc-${i}" />
+          <label for="proc-${i}" class="process-name">${p.name}</label>
+          <span class="process-costs">(${p.cost} Min, ${p.points} Punkte)</span>
+        `;
+        processList.appendChild(div);
+      });
+
+      updateTimer();
+      document.getElementById("points").innerText = `Punkte: ${points}`;
+    }
+
+    function updateTimer() {
+      const minutes = Math.floor(timeLeft / 60);
+      const seconds = timeLeft % 60;
+      document.getElementById("timer").innerText = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+
+      if (timeLeft <= 30) {
+        document.getElementById("timer").style.color = "#e74c3c";
+      }
+
+      if (timeLeft <= 0) {
+        endGame(false);
+      }
+    }
+
+    function startTimer() {
+      clearInterval(timer);
+      timer = setInterval(() => {
+        timeLeft--;
+        updateTimer();
+        if (timeLeft <= 0) {
+          clearInterval(timer);
+        }
+      }, 1000);
+    }
+
+    function selectProcess(index) {
+      const checkbox = document.getElementById(`proc-${index}`);
+      const card = document.getElementById(`card-${index}`);
+
+      if (checkbox.checked) {
+        selected.push(index);
+        card.classList.add("selected");
+      } else {
+        selected = selected.filter(i => i !== index);
+        card.classList.remove("selected");
+      }
+    }
+
+    function startProcess() {
+      if (!gameActive || timeLeft <= 0) return;
+
+      let totalPoints = 0;
+      let totalTime = 0;
+
+      selected.forEach(index => {
+        const process = processes[index];
+        totalPoints += process.points;
+        totalTime += process.cost;
+      });
+
+      points += totalPoints;
+      document.getElementById("points").innerText = `Punkte: ${points}`;
+
+      // Feedback
+      document.getElementById("feedback").style.display = "block";
+      setTimeout(() => {
+        document.getElementById("feedback").style.display = "none";
+      }, 1000);
+
+      // Reset selection
+      selected.forEach(index => {
+        const checkbox = document.getElementById(`proc-${index}`);
+        checkbox.checked = false;
+        const card = document.getElementById(`card-${index}`);
+        card.classList.remove("selected");
+      });
+      selected = [];
+
+      // Check win condition
+      if (points >= 50) {
+        endGame(true);
+      }
+    }
+
+    function endGame(success) {
+      gameActive = false;
+      clearInterval(timer);
+
+      const gameOver = document.getElementById("game-over");
+      const resultTitle = document.getElementById("result-title");
+      const finalScore = document.getElementById("final-score");
+      const resultMessage = document.getElementById("result-message");
+
+      if (success) {
+        resultTitle.innerText = "Gewonnen!";
+        resultMessage.innerText = `Glückwunsch! Du hast ${points} Punkte erreicht und die Digitalisierung erfolgreich abgeschlossen.`;
+      } else {
+        resultTitle.innerText = "Verloren";
+        resultMessage.innerText = `Zeit ist um. Du hast ${points} Punkte erreicht. Versuche es noch einmal!`;
+      }
+
+      finalScore.innerText = points;
+      gameOver.classList.add("show");
+    }
+
+    function resetGame() {
+      points = 0;
+      timeLeft = 180;
+      selected = [];
+      gameActive = true;
+
+      document.getElementById("points").innerText = `Punkte: ${points}`;
+      document.getElementById("game-over").classList.remove("show");
+
+      initGame();
+      startTimer();
+
+      // Add event listeners to checkboxes
+      document.querySelectorAll('input[type="checkbox"]').forEach((cb, i) => {
+        cb.removeEventListener("change", () => selectProcess(i));
+        cb.addEventListener("change", () => selectProcess(i));
+      });
+
+      // Button listeners
+      document.getElementById("start-btn").onclick = startProcess;
+      document.getElementById("reset-btn").onclick = resetGame;
+    }
+
+    window.onload = () => {
+      initGame();
+      startTimer();
+
+      // Add event listeners to checkboxes
+      document.querySelectorAll('input[type="checkbox"]').forEach((cb, i) => {
+        cb.addEventListener("change", () => selectProcess(i));
+      });
+
+      // Button listeners
+      document.getElementById("start-btn").onclick = startProcess;
+      document.getElementById("reset-btn").onclick = resetGame;
+
+      gameActive = true;
+    };
+  </script>
+</body>
+</html>
