@@ -16,6 +16,7 @@ Alle Schritte sollen auch lokal auf dem eigenen Rechner mit Ollama und Python au
 ## Notwendige Software:
 - Python Version 3.14.x (https://www.python.org/downloads/)
 - Ollama (https://ollama.com/download)
+- optional: Git https://git-scm.com/install/windows, Editor z.B. https://github.com/vscodium/vscodium/releases
 
 ## Erste Schritte:
 - Sprachmodell(e) installieren, zum Beispiel: ollama pull codellama:7b 
