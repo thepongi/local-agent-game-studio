@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>CampusDigital</title>
+  <meta charset="UTF-8">
+  <title>Campus-Optimierer</title>
   <style>
     * {
       box-sizing: border-box;
@@ -13,82 +12,74 @@
     }
 
     body {
-      background-color: #f4f6f9;
+      background-color: #f4f7fa;
       color: #333;
+      padding: 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 20px;
+      min-height: 100vh;
     }
 
     h1 {
+      margin-bottom: 15px;
       text-align: center;
-      margin-bottom: 20px;
       color: #2c3e50;
     }
 
     .game-container {
       width: 100%;
       max-width: 800px;
-      background-color: white;
+      background-color: #fff;
       border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       padding: 20px;
     }
 
-    .header {
+    .status-bar {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 20px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid #eee;
-    }
-
-    #timer {
-      font-size: 2em;
+      padding: 10px;
+      background-color: #ecf0f1;
+      border-radius: 8px;
       font-weight: bold;
-      color: #27ae60;
     }
 
-    #points {
+    .timer {
+      color: #e74c3c;
       font-size: 1.5em;
-      font-weight: bold;
-      color: #27ae60;
     }
 
-    .process-list {
+    .points {
+      color: #27ae60;
+      font-size: 1.2em;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
       margin-bottom: 20px;
     }
 
-    .process-card {
-      display: flex;
-      align-items: center;
+    th, td {
       padding: 12px;
-      margin-bottom: 10px;
-      background-color: #f9f9f9;
-      border-radius: 6px;
-      transition: all 0.3s ease;
-      border-left: 4px solid #3498db;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
     }
 
-    .process-card.selected {
-      background-color: #e3f2fd;
-      border-left: 4px solid #2196f3;
+    th {
+      background-color: #3498db;
+      color: white;
     }
 
-    .process-card input[type="checkbox"] {
-      margin-right: 10px;
-      transform: scale(1.2);
-    }
-
-    .process-name {
-      flex-grow: 1;
-    }
-
-    .process-costs {
-      font-size: 0.9em;
-      color: #7f8c8d;
+    input[type="number"] {
+      width: 60px;
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      text-align: center;
     }
 
     .controls {
@@ -99,7 +90,7 @@
     }
 
     button {
-      padding: 12px 20px;
+      padding: 12px 24px;
       font-size: 1em;
       border: none;
       border-radius: 6px;
@@ -107,291 +98,227 @@
       transition: background-color 0.3s;
     }
 
-    #start-btn {
+    #startBtn {
       background-color: #27ae60;
       color: white;
     }
 
-    #start-btn:hover {
-      background-color: #219653;
-    }
-
-    #reset-btn {
-      background-color: #e74c3c;
+    #restartBtn {
+      background-color: #3498db;
       color: white;
     }
 
-    #reset-btn:hover {
-      background-color: #c0392b;
+    button:hover {
+      opacity: 0.9;
     }
 
-    .feedback {
+    .summary {
       margin-top: 20px;
       padding: 15px;
-      background-color: #fff8e1;
-      border-radius: 6px;
+      background-color: #f9f9f9;
+      border-radius: 8px;
       text-align: center;
-      font-weight: bold;
       display: none;
     }
 
-    .game-over {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0,0,0,0.7);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-      visibility: hidden;
-      opacity: 0;
-      transition: all 0.5s ease;
+    .summary.show {
+      display: block;
     }
 
-    .game-over.show {
-      visibility: visible;
-      opacity: 1;
-    }
-
-    .result-card {
-      background-color: white;
-      padding: 30px;
-      border-radius: 10px;
+    .instructions {
+      margin-bottom: 20px;
+      padding: 10px;
+      background-color: #e3f2fd;
+      border-radius: 8px;
+      font-size: 0.9em;
       text-align: center;
-      max-width: 90%;
-    }
-
-    .result-card h2 {
-      margin-bottom: 15px;
-      color: #2c3e50;
-    }
-
-    .score-display {
-      font-size: 2em;
-      font-weight: bold;
-      margin: 20px 0;
-      color: #3498db;
     }
 
     @media (max-width: 600px) {
-      .header {
-        flex-direction: column;
-        gap: 10px;
+      .game-container {
+        padding: 15px;
       }
-      
+
+      th, td {
+        padding: 8px;
+        font-size: 0.9em;
+      }
+
+      input[type="number"] {
+        width: 50px;
+        font-size: 0.9em;
+      }
+
       .controls {
         flex-direction: column;
         align-items: center;
       }
-      
+
       button {
-        width: 80%;
+        width: 100%;
+        max-width: 200px;
       }
     }
   </style>
 </head>
 <body>
-  <h1>CampusDigital</h1>
-  
+  <h1>Campus-Optimierer</h1>
   <div class="game-container">
-    <div class="header">
-      <div id="timer">3:00</div>
-      <div id="points">Punkte: 0</div>
+    <div class="instructions">
+      Automatisiere Prozesse durch Eingabe von Punkten (0–10). Je höher die Punktezahl, desto mehr Wert wird automatisiert.
     </div>
 
-    <div class="process-list" id="processes"></div>
+    <div class="status-bar">
+      <span class="timer">Zeit: <span id="time">2:00</span></span>
+      <span class="points">Punkte: <span id="score">0</span></span>
+      <span id="status">Bereit</span>
+    </div>
+
+    <table id="processTable">
+      <thead>
+        <tr>
+          <th>Prozess</th>
+          <th>Zeit (min)</th>
+          <th>Wert</th>
+          <th>Automatisierungspunkte</th>
+        </tr>
+      </thead>
+      <tbody id="processList">
+      </tbody>
+    </table>
 
     <div class="controls">
-      <button id="start-btn">Digitalisieren</button>
-      <button id="reset-btn">Neustart</button>
+      <button id="startBtn">Spiel starten</button>
+      <button id="restartBtn">Neustart</button>
     </div>
 
-    <div class="feedback" id="feedback">
-      Digitalisierung erfolgreich!
-    </div>
-  </div>
-
-  <div class="game-over" id="game-over">
-    <div class="result-card">
-      <h2 id="result-title">Spiel beendet</h2>
-      <div class="score-display" id="final-score">0</div>
-      <p id="result-message"></p>
-      <button onclick="resetGame()">Neustart</button>
+    <div class="summary" id="summary">
+      <h2>Spiel beendet!</h2>
+      <p>Erreichte Punkte: <span id="finalScore">0</span></p>
+      <p>Prozentualer Erfolg: <span id="successRate">0%</span></p>
     </div>
   </div>
 
   <script>
     const processes = [
-      { name: "Prüfungsanmeldung", cost: 2, points: 10, progress: 0 },
-      { name: "Ressourcenanfrage", cost: 3, points: 15, progress: 0 },
-      { name: "Anmeldung Studiengang", cost: 4, points: 20, progress: 0 },
-      { name: "Semesteranmeldung", cost: 3, points: 12, progress: 0 },
-      { name: "Bewerbung Master", cost: 5, points: 25, progress: 0 },
-      { name: "Forschungsantrag", cost: 6, points: 30, progress: 0 }
+      { name: "Anmeldeformular", time: 2, value: 15 },
+      { name: "Genehmigungen", time: 3, value: 20 },
+      { name: "Abrechnungen", time: 4, value: 25 },
+      { name: "Dokumentation", time: 2, value: 10 },
+      { name: "Benutzeranmeldung", time: 1, value: 8 },
+      { name: "Zugangskontrolle", time: 3, value: 18 }
     ];
 
-    let selected = [];
-    let points = 0;
-    let timeLeft = 180; // 3 Minuten in Sekunden
     let timer;
+    let timeLeft = 120; // 2 Minuten in Sekunden
+    let score = 0;
     let gameActive = false;
 
-    function initGame() {
-      const processList = document.getElementById("processes");
-      processList.innerHTML = '';
+    const timeElement = document.getElementById('time');
+    const scoreElement = document.getElementById('score');
+    const statusElement = document.getElementById('status');
+    const processListElement = document.getElementById('processList');
+    const startBtn = document.getElementById('startBtn');
+    const restartBtn = document.getElementById('restartBtn');
+    const summaryElement = document.getElementById('summary');
+    const finalScoreElement = document.getElementById('finalScore');
+    const successRateElement = document.getElementById('successRate');
 
-      processes.forEach((p, i) => {
-        const div = document.createElement("div");
-        div.className = "process-card";
-        div.id = `card-${i}`;
-        div.innerHTML = `
-          <input type="checkbox" id="proc-${i}" />
-          <label for="proc-${i}" class="process-name">${p.name}</label>
-          <span class="process-costs">(${p.cost} Min, ${p.points} Punkte)</span>
-        `;
-        processList.appendChild(div);
-      });
-
-      updateTimer();
-      document.getElementById("points").innerText = `Punkte: ${points}`;
+    function formatTime(seconds) {
+      const mins = Math.floor(seconds / 60);
+      const secs = seconds % 60;
+      return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
     }
 
     function updateTimer() {
-      const minutes = Math.floor(timeLeft / 60);
-      const seconds = timeLeft % 60;
-      document.getElementById("timer").innerText = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-
-      if (timeLeft <= 30) {
-        document.getElementById("timer").style.color = "#e74c3c";
-      }
+      timeLeft--;
+      timeElement.textContent = formatTime(timeLeft);
 
       if (timeLeft <= 0) {
-        endGame(false);
+        endGame();
       }
     }
 
-    function startTimer() {
+    function startGame() {
+      gameActive = true;
+      statusElement.textContent = "Laufend";
+      timeLeft = 120;
+      score = 0;
+      updateTimer();
+      timer = setInterval(updateTimer, 1000);
+      renderProcesses();
+      summaryElement.classList.remove('show');
+    }
+
+    function restartGame() {
       clearInterval(timer);
-      timer = setInterval(() => {
-        timeLeft--;
-        updateTimer();
-        if (timeLeft <= 0) {
-          clearInterval(timer);
-        }
-      }, 1000);
+      startGame();
     }
 
-    function selectProcess(index) {
-      const checkbox = document.getElementById(`proc-${index}`);
-      const card = document.getElementById(`card-${index}`);
-
-      if (checkbox.checked) {
-        selected.push(index);
-        card.classList.add("selected");
-      } else {
-        selected = selected.filter(i => i !== index);
-        card.classList.remove("selected");
-      }
-    }
-
-    function startProcess() {
-      if (!gameActive || timeLeft <= 0) return;
-
-      let totalPoints = 0;
-      let totalTime = 0;
-
-      selected.forEach(index => {
-        const process = processes[index];
-        totalPoints += process.points;
-        totalTime += process.cost;
-      });
-
-      points += totalPoints;
-      document.getElementById("points").innerText = `Punkte: ${points}`;
-
-      // Feedback
-      document.getElementById("feedback").style.display = "block";
-      setTimeout(() => {
-        document.getElementById("feedback").style.display = "none";
-      }, 1000);
-
-      // Reset selection
-      selected.forEach(index => {
-        const checkbox = document.getElementById(`proc-${index}`);
-        checkbox.checked = false;
-        const card = document.getElementById(`card-${index}`);
-        card.classList.remove("selected");
-      });
-      selected = [];
-
-      // Check win condition
-      if (points >= 50) {
-        endGame(true);
-      }
-    }
-
-    function endGame(success) {
+    function endGame() {
       gameActive = false;
       clearInterval(timer);
+      statusElement.textContent = "Beendet";
 
-      const gameOver = document.getElementById("game-over");
-      const resultTitle = document.getElementById("result-title");
-      const finalScore = document.getElementById("final-score");
-      const resultMessage = document.getElementById("result-message");
+      // Berechne den Erfolg
+      const totalValue = processes.reduce((sum, p) => sum + p.value, 0);
+      const successRate = totalValue > 0 ? Math.round((score / totalValue) * 100) : 0;
 
-      if (success) {
-        resultTitle.innerText = "Gewonnen!";
-        resultMessage.innerText = `Glückwunsch! Du hast ${points} Punkte erreicht und die Digitalisierung erfolgreich abgeschlossen.`;
-      } else {
-        resultTitle.innerText = "Verloren";
-        resultMessage.innerText = `Zeit ist um. Du hast ${points} Punkte erreicht. Versuche es noch einmal!`;
-      }
+      finalScoreElement.textContent = score;
+      successRateElement.textContent = `${successRate}%`;
 
-      finalScore.innerText = points;
-      gameOver.classList.add("show");
+      summaryElement.classList.add('show');
     }
 
-    function resetGame() {
-      points = 0;
-      timeLeft = 180;
-      selected = [];
-      gameActive = true;
-
-      document.getElementById("points").innerText = `Punkte: ${points}`;
-      document.getElementById("game-over").classList.remove("show");
-
-      initGame();
-      startTimer();
-
-      // Add event listeners to checkboxes
-      document.querySelectorAll('input[type="checkbox"]').forEach((cb, i) => {
-        cb.removeEventListener("change", () => selectProcess(i));
-        cb.addEventListener("change", () => selectProcess(i));
+    function renderProcesses() {
+      processListElement.innerHTML = '';
+      processes.forEach((process, index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${process.name}</td>
+          <td>${process.time}</td>
+          <td>${process.value}</td>
+          <td><input type="number" min="0" max="10" value="0" data-index="${index}"></td>
+        `;
+        processListElement.appendChild(row);
       });
 
-      // Button listeners
-      document.getElementById("start-btn").onclick = startProcess;
-      document.getElementById("reset-btn").onclick = resetGame;
+      // Füge Event Listener zu den Inputs hinzu
+      document.querySelectorAll('#processList input').forEach(input => {
+        input.addEventListener('input', calculateScore);
+      });
     }
 
-    window.onload = () => {
-      initGame();
-      startTimer();
+    function calculateScore() {
+      if (!gameActive) return;
 
-      // Add event listeners to checkboxes
-      document.querySelectorAll('input[type="checkbox"]').forEach((cb, i) => {
-        cb.addEventListener("change", () => selectProcess(i));
+      let total = 0;
+      const inputs = document.querySelectorAll('#processList input');
+
+      inputs.forEach((input, index) => {
+        // Eingabe validieren: Wert zwischen 0 und 10
+        let value = parseInt(input.value) || 0;
+        value = Math.min(10, Math.max(0, value));
+
+        // Aktualisiere den Eingabewert im DOM, falls er außerhalb war
+        input.value = value;
+
+        const process = processes[index];
+        if (value > 0) {
+          // Neue Formel: Automatisierungswert bestimmt den Anteil des Prozesswerts
+          total += Math.round(process.value * (value / 10));
+        }
       });
 
-      // Button listeners
-      document.getElementById("start-btn").onclick = startProcess;
-      document.getElementById("reset-btn").onclick = resetGame;
+      score = total;
+      scoreElement.textContent = score;
+    }
 
-      gameActive = true;
-    };
+    startBtn.addEventListener('click', startGame);
+    restartBtn.addEventListener('click', restartGame);
+
+    // Initial render
+    renderProcesses();
   </script>
 </body>
 </html>

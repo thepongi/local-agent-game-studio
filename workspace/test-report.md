@@ -1,76 +1,89 @@
-### **Testbericht für das Spiel „CampusDigital“**
+### **Testbericht für „Campus-Optimierer“**
 
 ---
 
 #### **1. Läuft der Code grundsätzlich im Browser?**  
-✅ **Ja**, der HTML-Code läuft problemlos im Browser. Alle Elemente sind korrekt strukturiert, die Stylesheet- und Skript-Elemente werden korrekt geladen. Es gibt keine Syntaxfehler in HTML oder CSS.
+✅ **Ja**, der Code läuft grundsätzlich problemlos im Browser.  
+Alle HTML-, CSS- und JavaScript-Elemente sind korrekt strukturiert und funktionieren ohne Syntaxfehler.
 
 ---
 
 #### **2. Gibt es offensichtliche JavaScript-Fehler?**  
-⚠️ **Einige kleine Fehler im JavaScript-Code:**
+❌ **Ja, es gibt einen Fehler in der `calculateScore()`-Funktion.**  
+Die Funktion prüft, ob der Eingabewert größer als 0 ist, und berechnet dann den Wert basierend auf `(value / 10)`.  
+**Problem:** Wenn ein Benutzer z. B. `5` eingibt, wird `Math.round(20 * (5/10)) = Math.round(10)` berechnet.  
+Das ist zwar nicht falsch, aber es gibt **einen logischen Fehler im Spielmechanismus**:  
+Die automatisierten Punkte sollen proportional zur Anzahl der Automatisierungspunkte sein – hier wird jedoch ein **Faktor von 10** angenommen (d.h. bei 10 Punkten = 100% Automatisierung).  
+Das ist nicht intuitiv und nicht konsistent mit der Spiellogik.
 
-- **Fehler bei der Initialisierung der Checkbox-Events:**  
-  Im `window.onload` wird die Event-Listener-Registrierung zweimal ausgeführt – einmal direkt in `window.onload`, und dann noch einmal innerhalb von `resetGame()`. Das führt zu doppelten Event-Listenern, was potenziell zu unerwartetem Verhalten führen kann.
-
-- **Fehlerhafte Timer-Logik bei Spielende:**  
-  Bei einem Zeitablauf wird das Spiel korrekt beendet, aber es wird kein neuer Timer gestartet, wenn das Spiel neu gestartet wird – dies ist nicht fatal, aber es könnte zu Verwirrung führen, falls der Timer manuell zurückgesetzt werden müsste.
-
-- **Fehlerhafte Logik bei `selectProcess()`**:  
-  Die Funktion `selectProcess(index)` funktioniert zwar grundsätzlich, aber sie wird nicht von allen Checkboxen korrekt aufgerufen. In einigen Fällen kann es zu inkonsistenten Zuständen kommen, wenn der Benutzer schnell zwischen Checkboxen wechselt.
+Außerdem:
+- Es gibt **keine Überprüfung**, ob die Eingabewerte gültig sind (z. B. negative Zahlen oder Werte > 10).
+- Die Punkteberechnung sollte **klarer dokumentiert** oder auf eine logischere Formel umgestellt werden.
 
 ---
 
 #### **3. Ist das Spielziel verständlich?**  
-✅ **Ja**, das Ziel ist klar:  
-- Der Spieler hat 3 Minuten Zeit, um verschiedene digitale Prozesse auszuwählen (Checkbox).  
-- Jeder Prozess kostet eine bestimmte Anzahl an Minuten und gibt Punkte.  
-- Ziel ist es, **50 Punkte zu erreichen**, bevor die Zeit abläuft.
+✅ **Ja**, das Ziel ist relativ klar:  
+Der Spieler soll innerhalb von 2 Minuten Prozesse automatisieren, wobei die Punkte durch den eingegebenen Automatisierungswert bestimmt werden.  
+Allerdings:
+- Die Bezeichnung „Automatisierungspunkte“ ist unklar.  
+- Es fehlt eine kurze Erklärung oder Anleitung im Spiel.
 
 ---
 
 #### **4. Gibt es Start, Spielverlauf und Spielende?**  
-✅ **Ja**, alle drei Phasen sind vorhanden:  
-- **Start:** Beim Laden der Seite wird das Spiel initialisiert, Timer startet, Checkboxen werden angezeigt.  
-- **Spielverlauf:** Der Spieler wählt Prozesse aus, klickt auf „Digitalisieren“, Punkte werden erhöht.  
-- **Spielende:** Wenn die Zeit abläuft oder 50 Punkte erreicht sind, wird das Spiel beendet und ein Ergebnis angezeigt.
+✅ **Ja**, alle drei Phasen sind vorhanden:
+- **Start:** Button „Spiel starten“ startet den Timer.
+- **Spielverlauf:** Spieler gibt Werte ein, Punkte aktualisieren sich dynamisch.
+- **Spielende:** Bei Zeitende wird das Ergebnis angezeigt.
 
 ---
 
 #### **5. Funktioniert die Interaktion?**  
-✅ **Ja**, die grundlegende Interaktion funktioniert:  
-- Checkboxen werden korrekt ausgewählt/abgewählt.  
-- Die Punkte werden aktualisiert.  
-- Der Timer läuft korrekt runter.  
-- Das Feedback „Digitalisierung erfolgreich!“ wird angezeigt.
+✅ **Ja**, die Interaktion funktioniert grundsätzlich:
+- Timer läuft korrekt.
+- Eingabefelder reagieren auf Änderungen.
+- Punkte werden dynamisch aktualisiert.
+- Neustart-Funktion ist funktional.
 
-⚠️ **Einige Verbesserungspotenzial bei der Interaktion:**  
-- Es gibt keine visuelle Rückmeldung, wenn ein Prozess nicht gewählt werden kann (z. B. weil die Zeit abgelaufen ist).  
-- Das „Digitalisieren“-Button verhält sich nicht immer gleich, je nachdem, ob Prozesse ausgewählt wurden oder nicht.
-
----
-
-#### **6. Ist das Thema Hochschul-IT/CIO/Cybersecurity erkennbar?**  
-✅ **Ja**, das Thema ist erkennbar:  
-- Die Prozesse sind inhaltlich auf Hochschul-IT bezogen: „Prüfungsanmeldung“, „Ressourcenanfrage“, „Bewerbung Master“, „Forschungsantrag“ etc.  
-- Der Name „CampusDigital“ deutet auf eine digitale Transformation im Hochschulbereich hin.
+⚠️ **Ein kleiner UX-Fehler**:  
+Wenn der Spieler den Timer stoppt und dann neu startet, wird die Zeit nicht zurückgesetzt – es wird einfach weitergezählt. Das führt zu inkonsistenten Ergebnissen.
 
 ---
 
-#### **7. Welche drei konkreten Verbesserungen sollte der Developer Agent umsetzen?**
+#### **6. Welche drei konkreten Verbesserungen sollte der Developer Agent umsetzen?**
 
-1. **Doppelte Event-Listener-Registrierung beheben:**  
-   Die Checkboxen werden in `window.onload` und auch in `resetGame()` jeweils erneut mit `addEventListener` registriert. Das sollte vereinheitlicht werden, z. B. nur einmalig in `initGame()` oder in `resetGame()`.
+1. **Logik der Punkteberechnung überarbeiten:**  
+   Der aktuelle Ansatz `Math.round(process.value * (value / 10))` ist verwirrend.  
+   Bessere Lösung:  
+   ```javascript
+   const points = Math.round(process.value * (value / 10));
+   ```
+   **Besser:** Erkläre, dass bei 10 Punkten automatisch 100% erreicht werden – und vereinbare eine klare Formel.
 
-2. **Visuelle Feedback bei Zeitablauf hinzufügen:**  
-   Wenn die Zeit abgelaufen ist, sollte der Button „Digitalisieren“ deaktiviert sein oder ein Hinweis erscheinen, dass das Spiel beendet wurde.
+2. **Eingabefelder validieren:**  
+   Aktuell können negative Werte oder Werte > 10 eingegeben werden.  
+   Lösung:  
+   ```javascript
+   const value = Math.min(10, Math.max(0, parseInt(input.value) || 0));
+   ```
 
-3. **Klarere Anzeige von Prozesskosten und Punkten:**  
-   Die Kosten und Punkte werden in Klammern angezeigt – dies könnte durch eine bessere visuelle Hierarchie (Farben, Icons) verbessert werden, um die Wichtigkeit der Werte hervorzuheben.
+3. **Klarere Spielanleitung hinzufügen:**  
+   Ein kurzer Text wie „Automatisiere Prozesse durch Eingabe von Punkten (0–10)“ wäre hilfreich.
 
 ---
 
 ### **Entscheidung:**
+
 ✅ **Freigabe mit kleinen Änderungen**
 
-Das Spiel ist grundsätzlich voll funktionsfähig und verständlich. Es fehlen nur einige kleinere Verbesserungen in der Codequalität und Benutzererfahrung, um die Qualität weiter zu steigern.
+Der Code ist grundsätzlich funktionsfähig und die Spielmechanik ist verständlich.  
+Einige kleine, aber wichtige Verbesserungen sind notwendig, um die Spiellogik zu klären, Eingabefehler zu verhindern und das Spielerlebnis zu verbessern.
+
+--- 
+
+**Zusammenfassung für den Developer Agent:**
+- Punkteberechnung überarbeiten
+- Eingaben validieren
+- Spielanleitung ergänzen  
+→ Dann ist das Spiel bereit für die Produktion.

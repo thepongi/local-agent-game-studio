@@ -1,58 +1,63 @@
-## **Governance-Prüfung des Agentenprozesses für „CampusDigital“**
+### **Governance-Prüfung des Agentenprozesses für den Workshop „Campus-Optimierer“**
 
 ---
 
-### **1. Nachvollziehbarkeit der Agentenarbeit**  
-✅ **Gut**: Der Prozess ist nachvollziehbar. Es wird ein klarer Spielablauf definiert, die Rollen sind beschrieben (CIOs als Zielgruppe), und die Anforderungen an das Spiel sind strukturiert – sowohl in Bezug auf Design als auch auf technische Umsetzung.
+#### **1. Nachvollziehbarkeit der Agentenarbeit**
+✅ **Bewertung:** Gut  
+Der Prozess ist nachvollziehbar. Es wird klar dokumentiert, was der Agent getan hat (HTML/CSS/JS generieren), welche Spezifikationen er verwendet hat und wie er auf die Anforderungen reagiert hat.  
+**Kritikpunkt:** Einige technische Details (z. B. „Eingabefelder validieren“) werden nicht explizit im Code oder in der Dokumentation dokumentiert, was den Nachvollziehbarkeitsgrad leicht senkt.
 
-### **2. Trennung der Rollen**  
-✅ **Gut**: Die Rollen sind klar getrennt:  
-- **Design-Agent**: Erstellt Game Design, Spielmechanik, Spiellogik  
-- **Developer-Agent**: Implementiert das HTML/JS/CSS in der index.html  
-- **Test-Agent**: Führt Testbericht durch und identifiziert Fehler  
+#### **2. Trennung der Rollen**
+✅ **Bewertung:** Gut  
+Der Agent fungiert als „Developer Agent“, der ausschließlich auf Basis von Spezifikationen und Anforderungen arbeitet – keine menschliche Einflussnahme im Code.  
+**Kritikpunkt:** Es fehlt ein klarer Prozess zur Überprüfung, ob der Agent korrekt interpretiert hat, was er tun soll (z. B. durch eine „Freigabe“-Stufe vor dem Final-Code).
 
-### **3. Risiken durch automatisches Überschreiben von Dateien**  
-⚠️ **Mittel**: Es besteht ein Risiko, dass automatische Prozesse (z. B. bei Iterationen) alte Versionen überschreiben könnten – insbesondere wenn keine Versionskontrolle oder Commit-Strategie eingesetzt wird.
+#### **3. Risiken durch automatisches Überschreiben von Dateien**
+⚠️ **Bewertung:** Mittel  
+Der Agent hat keine explizite Mechanik zur Sicherung vor Überschreibungen (z. B. Versionierung oder Backup).  
+**Empfehlung:** Vor dem Speichern sollte geprüft werden, ob eine alte Version existiert – falls ja, sollte diese gesichert werden.
 
-### **4. Risiken durch unkontrollierte Codegenerierung**  
-⚠️ **Mittel**: Bei der Codeerstellung durch KI-Agenten besteht das Risiko, dass Code nicht den Sicherheitsstandards entspricht oder ungewollte Abhängigkeiten eingefügt werden – insbesondere bei dynamischer Erzeugung von HTML- und JS-Code.
+#### **4. Risiken durch unkontrollierte Codegenerierung**
+⚠️ **Bewertung:** Mittel  
+Der Agent generiert Code, der zwar funktional ist, aber nicht zwingend auf höchstem Qualitätsniveau ist (z. B. fehlende Kommentare, unklare Variablen).  
+**Empfehlung:** Ein „Code-Qualitätscheck“ als Zwischenstufe wäre sinnvoll – z. B. ein automatischer Linter oder eine Formatierungsprüfung.
 
-### **5. Datenschutz- und Sicherheitsaspekte**  
-✅ **Gut**: Das Spiel läuft vollständig im Browser (client-side), es gibt keine externen Serveranfragen oder Datensammlung. Die Speicherung erfolgt lokal im Browser (localStorage) – keine personenbezogenen Daten werden erfasst.
+#### **5. Datenschutz- und Sicherheitsaspekte**
+✅ **Bewertung:** Gut  
+Der Code enthält keine sensiblen Daten, keine externen Abhängigkeiten und ist rein lokal lauffähig.  
+**Empfehlung:** Keine weiteren Maßnahmen nötig, da es sich um einen lokalen Workshop-Code handelt.
 
-### **6. Eignung für eine CIO-Demo**  
-✅ **Sehr gut**:  
-- Spiel ist praxisnah und zeigt digitale Transformation in Hochschulen auf.  
-- Zielgruppe (CIOs) kann direkt mit dem Inhalt interagieren.  
-- Einfache, visuelle Darstellung von Ressourcen, Zeit und Effizienz – ideal für Workshops.
+#### **6. Eignung für eine CIO-Demo**
+✅ **Bewertung:** Gut  
+Der Code ist funktional, visuell ansprechend und erfüllt die Anforderungen einer Demo – inkl. Timer, interaktiver Elemente, Responsive Design.  
+**Empfehlung:** Ein kurzes Szenario zur Darstellung der Automatisierungskapazitäten wäre sinnvoll.
 
-### **7. Welche Freigabepunkte ein Mensch setzen sollte**  
-- Freigabe vor dem Start der Implementierung (Design-Agent)  
-- Freigabe nach Testphase (Test-Agent)  
-- Freigabe vor Demo (CIO-Team oder Workshop-Leitung)  
-- Freigabe der finalen index.html vor Auslieferung  
+#### **7. Welche Freigabepunkte ein Mensch setzen sollte**
+- **Freigabe vor dem Final-Code**: Prüfung auf korrekte Umsetzung der Spielmechanik (z. B. Punkteberechnung)  
+- **Freigabe vor Deployment**: Sicherstellung, dass alle Spezifikationen erfüllt sind  
+- **Freigabe nach Erweiterungen**: Bei zusätzlichen Features (Level-Up, Ereignisse) sollte ein Mensch prüfen, ob sie den Anforderungen entsprechen
 
-### **8. Welche Aktionen Agenten auf keinen Fall automatisch durchführen sollten**  
-- **Automatische Speicherung von Daten auf externen Servern**  
-- **Automatisches Überschreiben von Dateien ohne Backup oder Versionskontrolle**  
-- **Erzeugung von Code mit unbekannten Abhängigkeiten oder Sicherheitslücken**  
-
----
-
-## **Governance-Regeln für den Workshop**
-
-1. **Versionskontrolle**: Jede Version der index.html muss in einem Git-Repository gespeichert und getaggt werden, um Änderungen nachvollziehen zu können.
-2. **Menschliche Freigabe vor Demo**: Jede Demo muss von einer Person (z. B. CIO oder Workshop-Leitung) freigegeben werden – auch wenn die automatisierte Qualität erreicht ist.
-3. **Sicherheitscheck vor Speicherung**: Vor dem Speichern von Code in der index.html wird ein Sicherheits- und Datenschutzcheck durchgeführt.
+#### **8. Welche Aktionen Agenten auf keinen Fall automatisch durchführen sollten**
+- Automatisches Überschreiben von Dateien ohne Backup  
+- Generierung von Code mit externen Abhängigkeiten oder Bibliotheken (außer explizit genehmigt)  
+- Speicherung sensibler Daten oder Nutzerdaten im Agentenprozess
 
 ---
 
-## **Ampelbewertung: Gelb**
+### **Governance-Regeln für den Workshop**
 
-**Grund:** Der Prozess ist gut strukturiert, funktioniert und eignet sich für die Zielgruppe. Es bestehen jedoch Risiken hinsichtlich Codequalität, Versionskontrolle und möglicher automatisierter Überschreibungen – daher keine volle Freigabe ohne menschliche Prüfung.
+1. **Code-Überprüfung durch Mensch**: Der Agent darf keine finalen Dateien speichern, ohne dass ein menschlicher Reviewer diese geprüft hat.  
+2. **Versionierung und Backup**: Vor jeder Codeänderung wird eine Sicherheitskopie erstellt.  
+3. **Freigabeprozess**: Alle Erweiterungen (z. B. Level-Up, Ereignisse) müssen von einer Person genehmigt werden, bevor sie in die finale Version integriert werden.
 
 ---
 
-## **CIO-Zusammenfassung (maximal 5 Sätze)**
+### **Ampelbewertung: Gelb**
 
-„CampusDigital“ ist ein interaktives Browser-Spiel, das digitale Prozesse in Hochschulen spielerisch veranschaulicht. Es eignet sich hervorragend für CIO-Workshops zur Demonstration von Effizienzgewinn durch Digitalisierung. Der Spielprozess ist klar strukturiert und nachvollziehbar – sowohl im Design als auch in der technischen Umsetzung. Die Implementierung wurde von einem Developer-Agent erstellt, wobei die Qualität durch einen Test-Agent überprüft wurde. Das Spiel läuft vollständig lokal im Browser und erfüllt damit hohe Sicherheitsstandards – ideal für eine CIO-Demo.
+Der Agent hat eine gute Grundlage erzeugt, ist funktional und erfüllt die Anforderungen. Es bestehen jedoch Risiken durch fehlende Sicherheitsmaßnahmen, unklare Freigabeprozesse und mangelnde Codequalität – somit ein **gelber Punkt**.
+
+---
+
+### **CIO-Zusammenfassung (maximal 5 Sätze)**
+
+Der Agent hat erfolgreich einen funktionalen HTML-Prototypen für das Spiel „Campus-Optimierer“ generiert. Der Code ist responsive, enthält Timer, Eingabefelder und eine dynamische Punkteberechnung. Es bestehen jedoch noch einige Risiken bezüglich Sicherheit, Qualität und Freigabeprozess. Die Spielmechanik ist klar, aber einige logische Aspekte (z. B. Punkteberechnung) sollten noch überarbeitet werden. Für eine CIO-Demo ist der Prototyp geeignet – vorausgesetzt, er wird vor der Freigabe von einem Menschen geprüft und optimiert.
