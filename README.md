@@ -1,5 +1,5 @@
 # Local Agent Game Studio
-**Hands-on agentic AI Workshop im Rahmen des 11. Hochschul-CIO-Kongresses 2026 in Göttingen**</br>
+**Hands-on Agentic AI Workshop im Rahmen des 11. Hochschul-CIO-Kongresses 2026 in Göttingen**</br>
 Lokale, gekapselte KI-Agenten entwickeln gemeinsam ein kleines Browser-Spiel.</br>
 Anhand des basalen Ansatzes soll examplarisch gezeigt werden, wie mehrere spezialisierte Agenten zusammenarbeiten. Das Ziel ist nicht, ein perfektes Spiel erstellen zu lassen, sondern zu verstehen, wie agentische KI-Systeme strukturiert werden können. Dazu gehören eine klare Rollen Verteilung, begrenzte Zuständigkeiten, überprüfbare Zwischenergebnisse, Governance und Auditierbarkeit. Wünschenswert können auch eine lokale Ausführung und menschliche Freigabepunkte sein.
 
